@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,6 +75,85 @@
             background: #0a0a0a;
         }
 
+        .search-container {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto 3rem auto;
+        }
+
+        .search-box {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            border: 1px solid #2a2a3e;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .search-box input {
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 1rem;
+            width: 100%;
+            outline: none;
+        }
+
+        .search-box input::placeholder {
+            color: #6a6a8a;
+        }
+
+        .search-icon {
+            color: #40e0ff;
+            margin-right: 1rem;
+        }
+
+        .autocomplete-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border: 1px solid #2a2a3e;
+            border-top: none;
+            border-radius: 0 0 16px 16px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+
+        .autocomplete-item {
+            padding: 1rem 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid #2a2a3e;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .autocomplete-item:hover,
+        .autocomplete-item.selected {
+            background: rgba(64, 224, 255, 0.1);
+            color: #40e0ff;
+        }
+
+        .autocomplete-item:last-child {
+            border-bottom: none;
+        }
+
+        .autocomplete-term {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .autocomplete-category {
+            font-size: 0.85rem;
+            color: #8a2be2;
+            opacity: 0.8;
+        }
+
         .toc {
             background: linear-gradient(135deg, #1a1a2e, #16213e);
             border-radius: 16px;
@@ -108,6 +188,7 @@
             border: 1px solid #2a2a3e;
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
 
         .toc a::before {
@@ -133,34 +214,68 @@
         }
 
         .category {
-            margin-bottom: 4rem;
+            margin-bottom: 2rem;
             scroll-margin-top: 100px;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 16px;
+            border: 1px solid #2a2a3e;
+            overflow: hidden;
         }
 
-        .category h2 {
+        .category-header {
             font-size: 2.5rem;
             color: #ffffff;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
+            padding: 2rem;
             border-bottom: 2px solid #40e0ff;
             position: relative;
             font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(64, 224, 255, 0.05), rgba(138, 43, 226, 0.05));
         }
 
-        .category h2::after {
+        .category-header:hover {
+            background: linear-gradient(135deg, rgba(64, 224, 255, 0.1), rgba(138, 43, 226, 0.1));
+        }
+
+        .category-header::after {
             content: '';
             position: absolute;
             bottom: -2px;
-            left: 0;
+            left: 2rem;
             width: 120px;
             height: 2px;
             background: linear-gradient(135deg, #40e0ff, #8a2be2);
             border-radius: 2px;
         }
 
+        .accordion-icon {
+            font-size: 1.5rem;
+            color: #40e0ff;
+            transition: transform 0.3s ease;
+        }
+
+        .category.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .category-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .category.active .category-content {
+            max-height: 10000px;
+        }
+
         .terms-grid {
             display: grid;
             gap: 1.5rem;
+            padding: 2rem;
         }
 
         .term {
@@ -241,6 +356,7 @@
             margin: 0.5rem 0;
             transition: all 0.3s ease;
             position: relative;
+            cursor: pointer;
         }
 
         .floating-nav a:hover,
@@ -294,38 +410,6 @@
             50% { transform: translateY(-20px) rotate(180deg); }
         }
 
-        .search-box {
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            border-radius: 50px;
-            padding: 1rem 2rem;
-            margin-bottom: 2rem;
-            border: 1px solid #2a2a3e;
-            display: flex;
-            align-items: center;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-            margin-bottom: 3rem;
-        }
-
-        .search-box input {
-            background: transparent;
-            border: none;
-            color: #ffffff;
-            font-size: 1rem;
-            width: 100%;
-            outline: none;
-        }
-
-        .search-box input::placeholder {
-            color: #6a6a8a;
-        }
-
-        .search-icon {
-            color: #40e0ff;
-            margin-right: 1rem;
-        }
-
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 2.5rem;
@@ -335,7 +419,7 @@
                 grid-template-columns: 1fr;
             }
             
-            .category h2 {
+            .category-header {
                 font-size: 2rem;
             }
             
@@ -348,7 +432,6 @@
             }
         }
 
-        /* Scrollbar styling */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -371,36 +454,43 @@
     <div class="container">
         <div class="header">
             <h1>Quantum Computing Dictionary</h1>
-            <p>Comprehensive reference for quantum computing terms and concepts - a work in progress by Dr. Erik Garcell</p>
+            <p>Comprehensive reference for quantum computing terms and concepts - Powered by advanced quantum software development</p>
         </div>
 
         <div class="content">
-            <div class="search-box">
-                <span class="search-icon">🔍</span>
-                <input type="text" placeholder="Search quantum terms..." id="searchInput">
+            <div class="search-container">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" placeholder="Search quantum terms..." id="searchInput" autocomplete="off">
+                </div>
+                <div class="autocomplete-dropdown" id="autocompleteDropdown"></div>
             </div>
 
             <div class="toc">
                 <h2>Table of Contents</h2>
                 <div class="toc-grid">
-                    <a href="#qubits">Qubits</a>
-                    <a href="#quantum-algorithms">Quantum Algorithms</a>
-                    <a href="#benchmarking">Benchmarking (Quantum)</a>
-                    <a href="#quantum-error-correction">Quantum Error Correction</a>
-                    <a href="#quantum-hardware">Quantum Hardware and Components</a>
-                    <a href="#quantum-software">Quantum Software and Compilation</a>
-                    <a href="#quantum-communication">Quantum Communication and Networks</a>
-                    <a href="#quantum-cryptography">Quantum Cryptography</a>
-                    <a href="#quantum-concepts">Quantum Concepts & Phenomena</a>
-                    <a href="#quantum-architectures">Quantum Computing Architectures</a>
-                    <a href="#performance-metrics">Performance Metrics</a>
-                    <a href="#quantum-programming">Quantum Programming & Productivity</a>
+                    <a onclick="openAccordion('qubits')">Qubits</a>
+                    <a onclick="openAccordion('quantum-algorithms')">Quantum Algorithms</a>
+                    <a onclick="openAccordion('benchmarking')">Benchmarking (Quantum)</a>
+                    <a onclick="openAccordion('quantum-error-correction')">Quantum Error Correction</a>
+                    <a onclick="openAccordion('quantum-hardware')">Quantum Hardware and Components</a>
+                    <a onclick="openAccordion('quantum-software')">Quantum Software and Compilation</a>
+                    <a onclick="openAccordion('quantum-communication')">Quantum Communication and Networks</a>
+                    <a onclick="openAccordion('quantum-cryptography')">Quantum Cryptography</a>
+                    <a onclick="openAccordion('quantum-concepts')">Quantum Concepts & Phenomena</a>
+                    <a onclick="openAccordion('quantum-architectures')">Quantum Computing Architectures</a>
+                    <a onclick="openAccordion('performance-metrics')">Performance Metrics</a>
+                    <a onclick="openAccordion('quantum-programming')">Quantum Programming & Productivity</a>
                 </div>
             </div>
 
-            <div class="category" id="qubits">
-                <h2>Qubits</h2>
-                <div class="terms-grid">
+            <div class="category active" id="qubits">
+                <div class="category-header" onclick="toggleAccordion('qubits')">
+                    Qubits
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="category-content">
+                    <div class="terms-grid">
                     <div class="term">
                         <div class="term-name">Algorithmic Qubit</div>
                         <div class="term-definition">An estimate used by specific vendors (e.g., IonQ, Quantinuum) indicating the number of qubits that can reliably execute practical quantum algorithms, considering factors like error rates, connectivity, and coherence. Different from physical qubit counts.</div>
@@ -469,12 +559,17 @@
                         <div class="term-name">Stationary Qubit</div>
                         <div class="term-definition">Quantum bit encoded in fixed physical systems (e.g., trapped ions, superconducting circuits), typically employed for quantum processing and storage.</div>
                     </div>
+                    </div>
                 </div>
             </div>
 
             <div class="category" id="quantum-algorithms">
-                <h2>Quantum Algorithms</h2>
-                <div class="terms-grid">
+                <div class="category-header" onclick="toggleAccordion('quantum-algorithms')">
+                    Quantum Algorithms
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="category-content">
+                    <div class="terms-grid">
                     <div class="term">
                         <div class="term-name">Variational Quantum Algorithms (VQA)</div>
                         <div class="term-definition">Hybrid quantum-classical algorithms designed to solve optimization problems by iteratively refining quantum circuit parameters based on classical feedback. Prominent examples include VQE and QAOA.</div>
@@ -539,12 +634,17 @@
                         <div class="term-name">Adiabatic Quantum Computation</div>
                         <div class="term-definition">A computational paradigm where a quantum system evolves slowly from an easily prepared initial state to the ground state of a complex Hamiltonian encoding the problem solution. The adiabatic theorem ensures that the system remains close to its instantaneous ground state, solving problems like optimization and sampling.</div>
                     </div>
+                    </div>
                 </div>
             </div>
 
             <div class="category" id="benchmarking">
-                <h2>Benchmarking (Quantum)</h2>
-                <div class="terms-grid">
+                <div class="category-header" onclick="toggleAccordion('benchmarking')">
+                    Benchmarking (Quantum)
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="category-content">
+                    <div class="terms-grid">
                     <div class="term">
                         <div class="term-name">Quantum Volume</div>
                         <div class="term-definition">A hardware-agnostic benchmark introduced by IBM, quantifying a quantum system's performance by evaluating qubit count, coherence, gate fidelity, connectivity, and compiler efficiency. It offers a single numerical indicator of a quantum computer's overall capability.</div>
@@ -589,12 +689,17 @@
                         <div class="term-name">ACES Benchmarking (Averaged Circuit Eigenvalue Sampling)</div>
                         <div class="term-definition">A quantum benchmarking technique focusing on characterizing quantum devices by averaging eigenvalue sampling outcomes across randomized quantum circuits. ACES benchmarking detects and quantifies correlated errors and helps identify device-specific performance characteristics.</div>
                     </div>
+                    </div>
                 </div>
             </div>
 
             <div class="category" id="quantum-error-correction">
-                <h2>Quantum Error Correction</h2>
-                <div class="terms-grid">
+                <div class="category-header" onclick="toggleAccordion('quantum-error-correction')">
+                    Quantum Error Correction
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="category-content">
+                    <div class="terms-grid">
                     <div class="term">
                         <div class="term-name">Error-Corrected Qubit</div>
                         <div class="term-definition">A logical qubit constructed by encoding quantum information across multiple physical qubits to detect, mitigate, and correct errors. Achieving fault-tolerant quantum computing will typically require thousands of physical qubits per logical, error-corrected qubit.</div>
@@ -639,12 +744,17 @@
                         <div class="term-name">Bosonic Codes</div>
                         <div class="term-definition">Quantum error-correcting codes that encode information into quantum harmonic oscillator states (such as photons or bosonic modes) rather than discrete qubits. Bosonic codes utilize continuous variables to protect against errors like photon loss or displacement, providing alternative pathways toward fault-tolerant quantum computing.</div>
                     </div>
+                    </div>
                 </div>
             </div>
 
             <div class="category" id="quantum-hardware">
-                <h2>Quantum Hardware and Components</h2>
-                <div class="terms-grid">
+                <div class="category-header" onclick="toggleAccordion('quantum-hardware')">
+                    Quantum Hardware and Components
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="category-content">
+                    <div class="terms-grid">
                     <div class="term">
                         <div class="term-name">Quantum Processing Unit (QPU)</div>
                         <div class="term-definition">The core computational element of a quantum computer, consisting of an array of physical qubits and their associated control and readout mechanisms. QPUs perform quantum operations by leveraging quantum phenomena like superposition and entanglement.</div>
@@ -701,12 +811,17 @@
                         <div class="term-name">Qubit Coupler</div>
                         <div class="term-definition">A physical component facilitating controlled interaction between qubits, enabling two-qubit gates and entanglement. High-performance qubit couplers enhance qubit connectivity, reduce gate errors, and are critical for building scalable quantum architectures.</div>
                     </div>
+                    </div>
                 </div>
             </div>
 
             <div class="category" id="quantum-software">
-                <h2>Quantum Software and Compilation</h2>
-                <div class="terms-grid">
+                <div class="category-header" onclick="toggleAccordion('quantum-software')">
+                    Quantum Software and Compilation
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="category-content">
+                    <div class="terms-grid">
                     <div class="term">
                         <div class="term-name">Quantum Compiler</div>
                         <div class="term-definition">Software that translates high-level quantum algorithms into optimized, low-level quantum gate instructions tailored for execution on specific quantum hardware. Quantum compilers ensure efficient and accurate realization of quantum circuits.</div>
@@ -763,12 +878,17 @@
                         <div class="term-name">Quantum Middleware</div>
                         <div class="term-definition">Software components bridging quantum hardware and higher-level applications, managing tasks like hardware abstraction, error mitigation, job scheduling, and circuit optimization. Quantum middleware simplifies and accelerates quantum software development.</div>
                     </div>
+                    </div>
                 </div>
             </div>
 
             <div class="category" id="quantum-communication">
-                <h2>Quantum Communication and Networks</h2>
-                <div class="terms-grid">
+                <div class="category-header" onclick="toggleAccordion('quantum-communication')">
+                    Quantum Communication and Networks
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="category-content">
+                    <div class="terms-grid">
                     <div class="term">
                         <div class="term-name">Quantum Interconnect</div>
                         <div class="term-definition">Hardware and methods enabling connections between multiple quantum processing units (QPUs) or distant qubits. Quantum interconnects allow for modular quantum computing architectures and scalable distributed quantum systems through technologies such as photonic links and ion shuttling.</div>
@@ -805,12 +925,17 @@
                         <div class="term-name">Quantum Network Nodes</div>
                         <div class="term-definition">Individual quantum devices or processors capable of generating, storing, processing, and sharing quantum states within a quantum communication network. Network nodes form the backbone of quantum internet architectures, supporting distributed quantum applications.</div>
                     </div>
+                    </div>
                 </div>
             </div>
 
             <div class="category" id="quantum-cryptography">
-                <h2>Quantum Cryptography</h2>
-                <div class="terms-grid">
+                <div class="category-header" onclick="toggleAccordion('quantum-cryptography')">
+                    Quantum Cryptography
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="category-content">
+                    <div class="terms-grid">
                     <div class="term">
                         <div class="term-name">Post-Quantum Cryptography (PQC)</div>
                         <div class="term-definition">Cryptographic algorithms designed to remain secure against attacks from quantum computers. PQC methods, such as lattice-based or code-based cryptography, aim to replace classical encryption algorithms vulnerable to quantum attacks, ensuring long-term data security.</div>
@@ -835,12 +960,17 @@
                         <div class="term-name">Quantum Cryptanalysis</div>
                         <div class="term-definition">The study and practice of breaking cryptographic systems using quantum computing capabilities, exploiting quantum algorithms like Shor's algorithm. Quantum cryptanalysis poses a significant threat to traditional cryptography, motivating the development of quantum-safe cryptographic techniques.</div>
                     </div>
+                    </div>
                 </div>
             </div>
 
             <div class="category" id="quantum-concepts">
-                <h2>Quantum Concepts & Phenomena</h2>
-                <div class="terms-grid">
+                <div class="category-header" onclick="toggleAccordion('quantum-concepts')">
+                    Quantum Concepts & Phenomena
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="category-content">
+                    <div class="terms-grid">
                     <div class="term">
                         <div class="term-name">Coherence Time</div>
                         <div class="term-definition">The duration over which a qubit maintains its quantum state without significant degradation. Longer coherence times enhance quantum computation and fidelity, especially crucial in current noisy quantum systems (NISQ era).</div>
@@ -873,12 +1003,17 @@
                         <div class="term-name">No-Cloning Theorem</div>
                         <div class="term-definition">A fundamental theorem stating it is impossible to create identical copies of an arbitrary unknown quantum state. The no-cloning theorem ensures security in quantum cryptography and influences quantum communication protocols.</div>
                     </div>
+                    </div>
                 </div>
             </div>
 
             <div class="category" id="quantum-architectures">
-                <h2>Quantum Computing Architectures</h2>
-                <div class="terms-grid">
+                <div class="category-header" onclick="toggleAccordion('quantum-architectures')">
+                    Quantum Computing Architectures
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="category-content">
+                    <div class="terms-grid">
                     <div class="term">
                         <div class="term-name">Gate-Based Quantum Computer</div>
                         <div class="term-definition">A quantum computing architecture using discrete quantum gates—analogous to classical logic gates—to manipulate quantum states. Gate-based systems are universal, allowing the implementation of general-purpose quantum algorithms used by IBM, Google, and IonQ.</div>
@@ -903,12 +1038,17 @@
                         <div class="term-name">Photonic Quantum Computing</div>
                         <div class="term-definition">Quantum computing architecture utilizing photons as qubits. Photonic systems, pursued by companies like Xanadu and PsiQuantum, offer benefits in scalability, room-temperature operation, and high-speed quantum communication.</div>
                     </div>
+                    </div>
                 </div>
             </div>
 
             <div class="category" id="performance-metrics">
-                <h2>Performance Metrics</h2>
-                <div class="terms-grid">
+                <div class="category-header" onclick="toggleAccordion('performance-metrics')">
+                    Performance Metrics
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="category-content">
+                    <div class="terms-grid">
                     <div class="term">
                         <div class="term-name">Gate Fidelity</div>
                         <div class="term-definition">A measure of the accuracy with which quantum gates perform their intended operations. High gate fidelity is critical for executing complex quantum circuits reliably and maintaining quantum coherence throughout computation.</div>
@@ -953,12 +1093,17 @@
                         <div class="term-name">Scalability Factor</div>
                         <div class="term-definition">A measure indicating how effectively a quantum computing architecture or platform can grow in size or complexity without encountering prohibitive performance degradation or resource demands. High scalability is essential for realizing large-scale quantum applications.</div>
                     </div>
+                    </div>
                 </div>
             </div>
 
             <div class="category" id="quantum-programming">
-                <h2>Quantum Programming & Productivity</h2>
-                <div class="terms-grid">
+                <div class="category-header" onclick="toggleAccordion('quantum-programming')">
+                    Quantum Programming & Productivity
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="category-content">
+                    <div class="terms-grid">
                     <div class="term">
                         <div class="term-name">Quantum Programming Language (QPL)</div>
                         <div class="term-definition">A programming language designed specifically to represent and manipulate quantum information and operations, integrating unique quantum phenomena like superposition and entanglement.</div>
@@ -1019,71 +1164,227 @@
                         <div class="term-name">Quantum Code Verbosity</div>
                         <div class="term-definition">The length and complexity of quantum source code required to express algorithms clearly, affecting developer productivity and maintainability.</div>
                     </div>
+                    </div>
                 </div>
             </div>
 
-        </div>
-
         <div class="floating-nav" id="floatingNav">
-            <a href="#qubits"></a>
-            <a href="#quantum-algorithms"></a>
-            <a href="#benchmarking"></a>
-            <a href="#quantum-error-correction"></a>
-            <a href="#quantum-hardware"></a>
-            <a href="#quantum-software"></a>
+            <a onclick="openAccordion('qubits')"></a>
+            <a onclick="openAccordion('quantum-algorithms')"></a>
+            <a onclick="openAccordion('benchmarking')"></a>
+            <a onclick="openAccordion('quantum-error-correction')"></a>
+            <a onclick="openAccordion('quantum-hardware')"></a>
+            <a onclick="openAccordion('quantum-software')"></a>
         </div>
 
         <button class="back-to-top" id="backToTop">↑</button>
     </div>
 
-    <!-- Floating quantum particles -->
     <div class="quantum-particle" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
     <div class="quantum-particle" style="top: 60%; left: 80%; animation-delay: 2s;"></div>
     <div class="quantum-particle" style="top: 30%; left: 70%; animation-delay: 4s;"></div>
 
     <script>
-        // Wait for DOM to be fully loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            // Search functionality
-            const searchInput = document.getElementById('searchInput');
-            const terms = document.querySelectorAll('.term');
+        // Global variables
+        let allTerms = [];
+        let currentSelectedIndex = -1;
 
-            if (searchInput && terms.length > 0) {
-                searchInput.addEventListener('input', function() {
-                    const searchTerm = this.value.toLowerCase().trim();
+        // Initialize all terms data for autocomplete
+        function initializeTermsData() {
+            const categories = document.querySelectorAll('.category');
+            allTerms = [];
+            
+            categories.forEach(category => {
+                const categoryId = category.id;
+                const categoryName = category.querySelector('.category-header').textContent.trim();
+                const terms = category.querySelectorAll('.term');
+                
+                terms.forEach(term => {
+                    const termName = term.querySelector('.term-name').textContent.trim();
+                    const termDefinition = term.querySelector('.term-definition').textContent.trim();
                     
-                    // Remove previous highlights
-                    removeHighlights();
-                    
-                    terms.forEach(term => {
-                        const termName = term.querySelector('.term-name');
-                        const termDefinition = term.querySelector('.term-definition');
-                        
-                        if (termName && termDefinition) {
-                            const termNameText = termName.textContent.toLowerCase();
-                            const termDefinitionText = termDefinition.textContent.toLowerCase();
-                            
-                            const matchesName = termNameText.includes(searchTerm);
-                            const matchesDefinition = termDefinitionText.includes(searchTerm);
-                            
-                            if (searchTerm === '' || matchesName || matchesDefinition) {
-                                term.style.display = 'block';
-                                
-                                // Add highlighting if there's a search term
-                                if (searchTerm.length > 0) {
-                                    if (matchesName) {
-                                        highlightText(termName, searchTerm);
-                                    }
-                                    if (matchesDefinition) {
-                                        highlightText(termDefinition, searchTerm);
-                                    }
-                                }
-                            } else {
-                                term.style.display = 'none';
-                            }
-                        }
+                    allTerms.push({
+                        name: termName,
+                        definition: termDefinition,
+                        categoryId: categoryId,
+                        categoryName: categoryName,
+                        element: term
                     });
                 });
+            });
+        }
+
+        // Accordion functionality
+        function toggleAccordion(categoryId) {
+            const allCategories = document.querySelectorAll('.category');
+            const targetCategory = document.getElementById(categoryId);
+            
+            // Close all other accordions
+            allCategories.forEach(category => {
+                if (category.id !== categoryId) {
+                    category.classList.remove('active');
+                }
+            });
+            
+            // Toggle the target accordion
+            targetCategory.classList.toggle('active');
+        }
+
+        function openAccordion(categoryId) {
+            const allCategories = document.querySelectorAll('.category');
+            const targetCategory = document.getElementById(categoryId);
+            
+            // Close all accordions
+            allCategories.forEach(category => {
+                category.classList.remove('active');
+            });
+            
+            // Open the target accordion
+            targetCategory.classList.add('active');
+            
+            // Scroll to the section
+            setTimeout(() => {
+                targetCategory.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 300);
+        }
+
+        // Autocomplete functionality
+        const searchInput = document.getElementById('searchInput');
+        const autocompleteDropdown = document.getElementById('autocompleteDropdown');
+
+        function showAutocomplete(suggestions) {
+            if (suggestions.length === 0) {
+                autocompleteDropdown.style.display = 'none';
+                return;
+            }
+            
+            autocompleteDropdown.innerHTML = '';
+            suggestions.forEach((term, index) => {
+                const item = document.createElement('div');
+                item.className = 'autocomplete-item';
+                item.innerHTML = `
+                    <div class="autocomplete-term">${highlightMatch(term.name, searchInput.value)}</div>
+                    <div class="autocomplete-category">${term.categoryName}</div>
+                `;
+                item.addEventListener('click', () => selectTerm(term));
+                autocompleteDropdown.appendChild(item);
+            });
+            
+            autocompleteDropdown.style.display = 'block';
+            currentSelectedIndex = -1;
+        }
+
+        function hideAutocomplete() {
+            autocompleteDropdown.style.display = 'none';
+            currentSelectedIndex = -1;
+        }
+
+        function highlightMatch(text, query) {
+            if (!query) return text;
+            const regex = new RegExp(`(${query})`, 'gi');
+            return text.replace(regex, '<mark style="background: #40e0ff; color: #0a0a0a; padding: 1px 3px; border-radius: 2px;">$1</mark>');
+        }
+
+        function selectTerm(term) {
+            searchInput.value = term.name;
+            hideAutocomplete();
+            
+            // Open the appropriate accordion
+            openAccordion(term.categoryId);
+            
+            // Scroll to the specific term
+            setTimeout(() => {
+                term.element.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+                
+                // Highlight the term temporarily
+                term.element.style.transform = 'scale(1.02)';
+                term.element.style.boxShadow = '0 12px 40px rgba(64, 224, 255, 0.3)';
+                term.element.style.borderColor = '#40e0ff';
+                
+                setTimeout(() => {
+                    term.element.style.transform = '';
+                    term.element.style.boxShadow = '';
+                    term.element.style.borderColor = '';
+                }, 2000);
+            }, 600);
+        }
+
+        function navigateAutocomplete(direction) {
+            const items = autocompleteDropdown.querySelectorAll('.autocomplete-item');
+            if (items.length === 0) return;
+            
+            // Remove previous selection
+            if (currentSelectedIndex >= 0) {
+                items[currentSelectedIndex].classList.remove('selected');
+            }
+            
+            // Update index
+            if (direction === 'down') {
+                currentSelectedIndex = (currentSelectedIndex + 1) % items.length;
+            } else if (direction === 'up') {
+                currentSelectedIndex = currentSelectedIndex <= 0 ? items.length - 1 : currentSelectedIndex - 1;
+            }
+            
+            // Add new selection
+            items[currentSelectedIndex].classList.add('selected');
+            items[currentSelectedIndex].scrollIntoView({ block: 'nearest' });
+        }
+
+        // Search input event listeners
+        searchInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase().trim();
+            
+            if (query.length < 2) {
+                hideAutocomplete();
+                return;
+            }
+            
+            const suggestions = allTerms.filter(term => 
+                term.name.toLowerCase().includes(query) || 
+                term.definition.toLowerCase().includes(query)
+            ).slice(0, 8); // Limit to 8 suggestions
+            
+            showAutocomplete(suggestions);
+        });
+
+        searchInput.addEventListener('keydown', function(e) {
+            const dropdown = autocompleteDropdown;
+            const isVisible = dropdown.style.display === 'block';
+            
+            if (!isVisible) return;
+            
+            switch(e.key) {
+                case 'ArrowDown':
+                    e.preventDefault();
+                    navigateAutocomplete('down');
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    navigateAutocomplete('up');
+                    break;
+                case 'Enter':
+                    e.preventDefault();
+                    const selectedItem = dropdown.querySelector('.autocomplete-item.selected');
+                    if (selectedItem) {
+                        selectedItem.click();
+                    }
+                    break;
+                case 'Escape':
+                    hideAutocomplete();
+                    break;
+            }
+        });
+
+        // Click outside to close autocomplete
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.search-container')) {
+                hideAutocomplete();
             }
         });
 
@@ -1105,20 +1406,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
         // Floating navigation active state
         const sections = document.querySelectorAll('.category');
         const navLinks = document.querySelectorAll('.floating-nav a');
@@ -1135,7 +1422,7 @@
 
             navLinks.forEach(link => {
                 link.classList.remove('active');
-                if (link.getAttribute('href') === '#' + current) {
+                if (link.getAttribute('onclick') && link.getAttribute('onclick').includes(current)) {
                     link.classList.add('active');
                 }
             });
@@ -1162,76 +1449,6 @@
         // Create particles periodically
         setInterval(createQuantumParticle, 3000);
 
-        // Enhanced search with highlighting
-        function highlightText(element, searchTerm) {
-            if (!element || !searchTerm || searchTerm.length === 0) return;
-            
-            const originalText = element.textContent;
-            const regex = new RegExp(`(${escapeRegExp(searchTerm)})`, 'gi');
-            
-            element.innerHTML = originalText.replace(regex, 
-                '<mark style="background: #40e0ff; color: #0a0a0a; padding: 2px 4px; border-radius: 3px; font-weight: bold;">$1</mark>'
-            );
-        }
-
-        function escapeRegExp(string) {
-            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\        // Enhanced search with highlighting
-        function highlightText(element, searchTerm) {
-            const innerHTML = element.innerHTML;
-            const index = innerHTML.toLowerCase().indexOf(searchTerm.toLowerCase());
-            if (index >= 0 && searchTerm.length > 0) {
-                element.innerHTML = innerHTML.substring(0, index) + 
-                    '<mark style="background: #40e0ff; color: #0a0a0a; padding: 2px 4px; border-radius: 3px;">' + 
-                    innerHTML.substring(index, index + searchTerm.length) + '</mark>' + 
-                    innerHTML.substring(index + searchTerm.length);
-            }
-        }
-
-        function removeHighlights() {
-            document.querySelectorAll('mark').forEach(mark => {
-                const parent = mark.parentNode;
-                parent.replaceChild(document.createTextNode(mark.textContent), mark);
-                parent.normalize();
-            });
-        }');
-        }
-
-        function removeHighlights() {
-            document.querySelectorAll('mark').forEach(mark => {
-                const parent = mark.parentNode;
-                if (parent) {
-                    parent.replaceChild(document.createTextNode(mark.textContent), mark);
-                    parent.normalize();
-                }
-            });
-        }
-
-        searchInput.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            removeHighlights();
-            
-            terms.forEach(term => {
-                const termName = term.querySelector('.term-name');
-                const termDefinition = term.querySelector('.term-definition');
-                const termNameText = termName.textContent.toLowerCase();
-                const termDefinitionText = termDefinition.textContent.toLowerCase();
-                
-                if (termNameText.includes(searchTerm) || termDefinitionText.includes(searchTerm)) {
-                    term.style.display = 'block';
-                    if (searchTerm.length > 0) {
-                        if (termNameText.includes(searchTerm)) {
-                            highlightText(termName, searchTerm);
-                        }
-                        if (termDefinitionText.includes(searchTerm)) {
-                            highlightText(termDefinition, searchTerm);
-                        }
-                    }
-                } else {
-                    term.style.display = searchTerm === '' ? 'block' : 'none';
-                }
-            });
-        });
-
         // Intersection Observer for animations
         const observerOptions = {
             threshold: 0.1,
@@ -1247,12 +1464,18 @@
             });
         }, observerOptions);
 
-        // Apply animation observer to terms
-        terms.forEach(term => {
-            term.style.opacity = '0';
-            term.style.transform = 'translateY(30px)';
-            term.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(term);
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeTermsData();
+            
+            // Apply animation observer to terms
+            const terms = document.querySelectorAll('.term');
+            terms.forEach(term => {
+                term.style.opacity = '0';
+                term.style.transform = 'translateY(30px)';
+                term.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(term);
+            });
         });
     </script>
 </body>
