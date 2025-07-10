@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Computing Dictionary</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #ffffff;
+            background: #0a0a0a;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: #0a0a0a;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid #2a2a3e;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(64, 224, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(138, 43, 226, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(135deg, #40e0ff, #8a2be2, #00ffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            color: #b8bcc8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .content {
+            padding: 3rem 2rem;
+            background: #0a0a0a;
+        }
+
+        .toc {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 4rem;
+            border: 1px solid #2a2a3e;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .toc h2 {
+            color: #40e0ff;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .toc a {
+            color: #b8bcc8;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: block;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            background: rgba(26, 26, 46, 0.5);
+            border: 1px solid #2a2a3e;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .toc a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(64, 224, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .toc a:hover {
+            color: #40e0ff;
+            border-color: #40e0ff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(64, 224, 255, 0.2);
+        }
+
+        .toc a:hover::before {
+            left: 100%;
+        }
+
+        .category {
+            margin-bottom: 4rem;
+            scroll-margin-top: 100px;
+        }
+
+        .category h2 {
+            font-size: 2.5rem;
+            color: #ffffff;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #40e0ff;
+            position: relative;
+            font-weight: 600;
+        }
+
+        .category h2::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(135deg, #40e0ff, #8a2be2);
+            border-radius: 2px;
+        }
+
+        .terms-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .term {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid #2a2a3e;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .term::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #40e0ff, #8a2be2, #00ffff);
+        }
+
+        .term:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(64, 224, 255, 0.15);
+            border-color: #40e0ff;
+        }
+
+        .term-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #40e0ff;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .term-name::before {
+            content: '◆';
+            color: #8a2be2;
+            margin-right: 0.8rem;
+            font-size: 1rem;
+        }
+
+        .term-definition {
+            color: #b8bcc8;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .floating-nav {
+            position: fixed;
+            top: 50%;
+            right: 2rem;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 50px;
+            padding: 1rem;
+            border: 1px solid #2a2a3e;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .floating-nav.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .floating-nav a {
+            display: block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #2a2a3e;
+            margin: 0.5rem 0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .floating-nav a:hover,
+        .floating-nav a.active {
+            background: #40e0ff;
+            box-shadow: 0 0 15px rgba(64, 224, 255, 0.5);
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, #40e0ff, #8a2be2);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(64, 224, 255, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(64, 224, 255, 0.4);
+        }
+
+        .quantum-particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: #40e0ff;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.6;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .search-box {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid #2a2a3e;
+            display: flex;
+            align-items: center;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 3rem;
+        }
+
+        .search-box input {
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 1rem;
+            width: 100%;
+            outline: none;
+        }
+
+        .search-box input::placeholder {
+            color: #6a6a8a;
+        }
+
+        .search-icon {
+            color: #40e0ff;
+            margin-right: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .toc-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .category h2 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 2rem 1rem;
+            }
+
+            .floating-nav {
+                display: none;
+            }
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a2e;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #40e0ff, #8a2be2);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #8a2be2, #40e0ff);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Quantum Computing Dictionary</h1>
+            <p>Comprehensive reference for quantum computing terms and concepts - Powered by advanced quantum software development</p>
+        </div>
+
+        <div class="content">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" placeholder="Search quantum terms..." id="searchInput">
+            </div>
+
+            <div class="toc">
+                <h2>Table of Contents</h2>
+                <div class="toc-grid">
+                    <a href="#qubits">Qubits</a>
+                    <a href="#quantum-algorithms">Quantum Algorithms</a>
+                    <a href="#benchmarking">Benchmarking (Quantum)</a>
+                    <a href="#quantum-error-correction">Quantum Error Correction</a>
+                    <a href="#quantum-hardware">Quantum Hardware and Components</a>
+                    <a href="#quantum-software">Quantum Software and Compilation</a>
+                    <a href="#quantum-communication">Quantum Communication and Networks</a>
+                    <a href="#quantum-cryptography">Quantum Cryptography</a>
+                    <a href="#quantum-concepts">Quantum Concepts & Phenomena</a>
+                    <a href="#quantum-architectures">Quantum Computing Architectures</a>
+                    <a href="#performance-metrics">Performance Metrics</a>
+                    <a href="#quantum-programming">Quantum Programming & Productivity</a>
+                </div>
+            </div>
+
+            <div class="category" id="qubits">
+                <h2>Qubits</h2>
+                <div class="terms-grid">
+                    <div class="term">
+                        <div class="term-name">Algorithmic Qubit</div>
+                        <div class="term-definition">An estimate used by specific vendors (e.g., IonQ, Quantinuum) indicating the number of qubits that can reliably execute practical quantum algorithms, considering factors like error rates, connectivity, and coherence. Different from physical qubit counts.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Logical Qubit</div>
+                        <div class="term-definition">A qubit encoded with error-correcting codes across multiple physical qubits to protect against errors.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Physical Qubit</div>
+                        <div class="term-definition">The actual physical hardware implementation of a quantum bit, such as an ion, photon, or superconducting circuit.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Spin Qubit</div>
+                        <div class="term-definition">Qubit implemented using the spin state of electrons, typically in quantum dots or nitrogen-vacancy centers.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Trapped Ion Qubit</div>
+                        <div class="term-definition">Qubit stored in the quantum state of individual ions trapped and manipulated using lasers.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Flux Qubit</div>
+                        <div class="term-definition">Superconducting qubit type using circulating currents in superconducting loops to encode quantum information.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Charge Qubit</div>
+                        <div class="term-definition">Quantum bit encoded in the presence or absence of charge in superconducting circuits.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Transmon Qubit</div>
+                        <div class="term-definition">Type of superconducting qubit engineered for reduced sensitivity to charge noise, widely used in quantum hardware.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">NV-center Qubit</div>
+                        <div class="term-definition">Qubits based on nitrogen-vacancy defects in diamond crystals, offering room-temperature operation potential.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Majorana Qubit</div>
+                        <div class="term-definition">Theoretically robust qubit using Majorana fermions, explored primarily for its resistance to decoherence.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Superconducting Qubit</div>
+                        <div class="term-definition">Synthetic qubit based on Josephson junctions operated at cryogenic temperatures. Adopted by IBM, Google, Rigetti, and OQC.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Photonic Qubit</div>
+                        <div class="term-definition">Quantum bits encoded in photons, advantageous for scalability and room-temperature operations. PsiQuantum and Xanadu lead developments in this technology.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Topological Qubit</div>
+                        <div class="term-definition">A theoretically robust qubit storing information in system-wide properties, highly resistant to local noise. Pursued by Microsoft.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Neutral Atom Qubit</div>
+                        <div class="term-definition">Qubit implemented using neutral atoms trapped and manipulated by optical lattices or optical tweezers, enabling scalable quantum arrays.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Cat State Qubit</div>
+                        <div class="term-definition">A qubit encoded in superpositions of coherent quantum states (quantum "cat states"), offering enhanced resistance to specific errors.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Flying Qubit</div>
+                        <div class="term-definition">Quantum bit encoded in mobile quantum carriers like photons, used primarily in quantum communication.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Stationary Qubit</div>
+                        <div class="term-definition">Quantum bit encoded in fixed physical systems (e.g., trapped ions, superconducting circuits), typically employed for quantum processing and storage.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category" id="quantum-algorithms">
+                <h2>Quantum Algorithms</h2>
+                <div class="terms-grid">
+                    <div class="term">
+                        <div class="term-name">Variational Quantum Algorithms (VQA)</div>
+                        <div class="term-definition">Hybrid quantum-classical algorithms designed to solve optimization problems by iteratively refining quantum circuit parameters based on classical feedback. Prominent examples include VQE and QAOA.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Approximate Optimization Algorithm (QAOA)</div>
+                        <div class="term-definition">A quantum algorithm aimed at solving combinatorial optimization problems. It leverages quantum superposition and entanglement to approximate optimal solutions through adjustable parameters.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Variational Quantum Eigensolver (VQE)</div>
+                        <div class="term-definition">A hybrid algorithm used to find ground-state energies of quantum systems. VQE combines classical optimization with quantum measurements to efficiently solve problems in quantum chemistry and materials science.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Fourier Transform (QFT)</div>
+                        <div class="term-definition">A quantum analogue of the classical discrete Fourier transform. It's a core component of quantum algorithms like Shor's algorithm, enabling efficient computation of periodic functions.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Grover's Algorithm</div>
+                        <div class="term-definition">A quantum algorithm providing quadratic speed-up for unstructured database search problems. It efficiently locates an element within an unsorted list, demonstrating a significant advantage over classical search methods.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Shor's Algorithm</div>
+                        <div class="term-definition">A quantum algorithm designed to efficiently factor large numbers, directly impacting cryptographic security. Its ability to factor integers exponentially faster than classical algorithms poses a threat to classical encryption schemes like RSA.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Phase Estimation (QPE)</div>
+                        <div class="term-definition">An algorithm for determining the eigenvalues (phases) of a unitary operator. It serves as a critical subroutine in many quantum algorithms, notably Shor's algorithm and quantum simulations.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Hamiltonian Simulation</div>
+                        <div class="term-definition">Quantum algorithms designed to simulate the time-evolution of quantum systems described by Hamiltonians. This capability is essential for quantum chemistry, material science, and physics simulations, surpassing classical computational methods.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Machine Learning (QML)</div>
+                        <div class="term-definition">The intersection of quantum computing and machine learning, where quantum algorithms enhance or accelerate classical machine learning tasks. Applications include classification, clustering, and neural network optimization.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Neural Network (QNN)</div>
+                        <div class="term-definition">Quantum analogues of classical neural networks leveraging quantum circuits to perform machine learning tasks. They exploit quantum properties like superposition and entanglement to potentially offer computational advantages in pattern recognition and learning efficiency.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Monte Carlo (QMC)</div>
+                        <div class="term-definition">A class of quantum algorithms employing stochastic methods for solving complex quantum problems. Quantum Monte Carlo approaches are crucial for simulating quantum systems and estimating integrals more efficiently than classical Monte Carlo methods.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Singular Value Transformation (QSVT)</div>
+                        <div class="term-definition">A powerful quantum algorithmic framework that generalizes many quantum algorithms by manipulating singular values of matrices. QSVT enables solving linear algebra problems efficiently on quantum hardware, underpinning many modern quantum algorithm designs.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Walks</div>
+                        <div class="term-definition">Quantum analogues of classical random walks exploiting quantum interference to achieve faster spreading and mixing rates. Quantum walks form the basis for advanced search algorithms and simulations of quantum systems.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Amplitude Estimation</div>
+                        <div class="term-definition">A quantum algorithm used to estimate the amplitude of a quantum state, enabling efficient probability calculations. Amplitude estimation serves as a critical subroutine in quantum finance, Monte Carlo methods, and risk analysis.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Gradient Descent</div>
+                        <div class="term-definition">Quantum-enhanced optimization algorithms that leverage quantum computing techniques to calculate gradients more efficiently. Useful in training quantum machine learning models and optimizing variational algorithms.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Adiabatic Quantum Computation</div>
+                        <div class="term-definition">A computational paradigm where a quantum system evolves slowly from an easily prepared initial state to the ground state of a complex Hamiltonian encoding the problem solution. The adiabatic theorem ensures that the system remains close to its instantaneous ground state, solving problems like optimization and sampling.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category" id="benchmarking">
+                <h2>Benchmarking (Quantum)</h2>
+                <div class="terms-grid">
+                    <div class="term">
+                        <div class="term-name">Quantum Volume</div>
+                        <div class="term-definition">A hardware-agnostic benchmark introduced by IBM, quantifying a quantum system's performance by evaluating qubit count, coherence, gate fidelity, connectivity, and compiler efficiency. It offers a single numerical indicator of a quantum computer's overall capability.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Randomized Benchmarking (RB)</div>
+                        <div class="term-definition">A quantum benchmarking method that measures the average fidelity of quantum gate sets by executing sequences of randomly selected gates. RB isolates gate errors from state preparation and measurement errors, providing a reliable indicator of gate-level performance.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Cross-Entropy Benchmarking (XEB)</div>
+                        <div class="term-definition">A benchmarking technique introduced by Google to measure quantum system performance by comparing experimentally observed output distributions against theoretical (ideal) distributions. XEB was notably used in demonstrating Google's claim of quantum supremacy.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">LINPACK-style Benchmarking</div>
+                        <div class="term-definition">An approach inspired by classical LINPACK benchmarks, focusing on the execution speed and accuracy of large-scale quantum circuits or matrix operations. LINPACK-style benchmarks aim to reflect realistic workloads and practical quantum computing tasks.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Clifford Benchmarking</div>
+                        <div class="term-definition">A specialized benchmarking method evaluating the performance of Clifford gates, a specific class of quantum operations crucial for quantum error correction and fault-tolerant quantum computing. Clifford benchmarking assesses gate fidelity and consistency.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Circuit Layer Operations per Second (CLOPS)</div>
+                        <div class="term-definition">A quantum performance metric introduced by IBM measuring how quickly a quantum computer can execute layers of parameterized circuits. CLOPS quantifies practical throughput, including circuit compilation and classical control overhead, providing insight into real-world quantum workloads.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">State Tomography</div>
+                        <div class="term-definition">An experimental method used to reconstruct the complete quantum state of a system through a series of measurements performed in different bases. State tomography is essential for verifying quantum states and evaluating quantum system accuracy.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Gate Set Tomography (GST)</div>
+                        <div class="term-definition">An advanced quantum benchmarking technique that provides a highly accurate and comprehensive characterization of quantum gates and operations, including state preparation and measurement errors. GST delivers detailed insights into quantum device reliability and performance.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Cycle Benchmarking</div>
+                        <div class="term-definition">A benchmarking method designed to measure errors in cycles (groups of operations or gates) rather than individual gates. Cycle benchmarking provides an accurate evaluation of realistic quantum circuit performance and is effective in identifying correlated errors.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum LINPACK</div>
+                        <div class="term-definition">A quantum adaptation of the classical LINPACK benchmark suite designed to evaluate quantum computers' capability to solve linear algebra problems. It provides performance metrics relevant for algorithms involving linear system solving and matrix computations.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">ACES Benchmarking (Averaged Circuit Eigenvalue Sampling)</div>
+                        <div class="term-definition">A quantum benchmarking technique focusing on characterizing quantum devices by averaging eigenvalue sampling outcomes across randomized quantum circuits. ACES benchmarking detects and quantifies correlated errors and helps identify device-specific performance characteristics.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category" id="quantum-error-correction">
+                <h2>Quantum Error Correction</h2>
+                <div class="terms-grid">
+                    <div class="term">
+                        <div class="term-name">Error-Corrected Qubit</div>
+                        <div class="term-definition">A logical qubit constructed by encoding quantum information across multiple physical qubits to detect, mitigate, and correct errors. Achieving fault-tolerant quantum computing will typically require thousands of physical qubits per logical, error-corrected qubit.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Fault Tolerance</div>
+                        <div class="term-definition">The capability of a quantum computing system to reliably perform computations despite the presence of errors, typically achieved by integrating quantum error correction techniques. Fault tolerance is critical to executing large-scale, practical quantum algorithms.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Surface Code</div>
+                        <div class="term-definition">A quantum error-correcting code widely regarded as a leading candidate for scalable, fault-tolerant quantum computation. It arranges qubits in a two-dimensional lattice, enabling efficient error detection and correction through local measurements.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Threshold Theorem</div>
+                        <div class="term-definition">A theoretical result stating that if the error rate of quantum operations falls below a certain critical value (the threshold), then fault-tolerant quantum computation is achievable. Surpassing this threshold is essential for scalable quantum computing.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Concatenated Quantum Codes</div>
+                        <div class="term-definition">An error correction method in which multiple quantum codes are layered or nested, providing enhanced protection by recursively encoding logical qubits within other quantum codes. This significantly reduces error rates at the expense of increased complexity.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Stabilizer Code</div>
+                        <div class="term-definition">A class of quantum error-correcting codes characterized by their stabilizer formalism, which uses a set of commuting observables (stabilizers) to detect and correct errors. Surface codes and color codes are prominent examples of stabilizer codes.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Bacon-Shor Code</div>
+                        <div class="term-definition">A quantum error-correcting code structured to simplify error correction processes by reducing the complexity of required measurements. It is notable for combining features of Shor's code and stabilizer codes, providing an efficient path toward fault tolerance.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Color Codes</div>
+                        <div class="term-definition">A family of topological quantum error-correcting codes using qubits arranged on two-dimensional or three-dimensional lattices, identified by color assignments that determine error detection and correction properties. They enable transversal implementation of a broad range of quantum gates.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Error Detection</div>
+                        <div class="term-definition">Methods used to identify the occurrence of errors in quantum information processing, often serving as an intermediate step before correction. Error detection allows systems to take corrective actions or discard corrupted quantum data.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Magic State Distillation</div>
+                        <div class="term-definition">A procedure used in fault-tolerant quantum computation to produce highly reliable, special quantum states known as "magic states." These states enable universal quantum computation when combined with stabilizer operations.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Bosonic Codes</div>
+                        <div class="term-definition">Quantum error-correcting codes that encode information into quantum harmonic oscillator states (such as photons or bosonic modes) rather than discrete qubits. Bosonic codes utilize continuous variables to protect against errors like photon loss or displacement, providing alternative pathways toward fault-tolerant quantum computing.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category" id="quantum-hardware">
+                <h2>Quantum Hardware and Components</h2>
+                <div class="terms-grid">
+                    <div class="term">
+                        <div class="term-name">Quantum Processing Unit (QPU)</div>
+                        <div class="term-definition">The core computational element of a quantum computer, consisting of an array of physical qubits and their associated control and readout mechanisms. QPUs perform quantum operations by leveraging quantum phenomena like superposition and entanglement.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Cryogenic Control Systems</div>
+                        <div class="term-definition">Hardware and software systems designed to operate quantum processors at extremely low temperatures, typically in the millikelvin range. These systems ensure qubit stability and coherent quantum operations, especially important for superconducting qubits.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Dilution Refrigerator</div>
+                        <div class="term-definition">A type of ultra-low-temperature refrigeration device used to cool quantum hardware to temperatures approaching absolute zero (typically ~10 mK). Essential for stabilizing superconducting qubits and minimizing thermal noise and decoherence.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Josephson Junction</div>
+                        <div class="term-definition">A superconducting device consisting of two superconductors separated by a thin insulating barrier. Josephson junctions form the foundational element of superconducting qubits and enable precise quantum control and manipulation.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Dot</div>
+                        <div class="term-definition">A nanoscale semiconductor structure capable of confining electrons or holes in three dimensions, creating discrete quantum states. Quantum dots are commonly used to implement spin qubits, offering scalable quantum computation architectures.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Microwave Resonator</div>
+                        <div class="term-definition">A superconducting or dielectric structure used to control, couple, and read out qubit states via microwave photons. Microwave resonators facilitate precise manipulation and measurement of quantum states, playing a crucial role in quantum circuit design.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Ion Trap</div>
+                        <div class="term-definition">A device employing electromagnetic fields to trap and control individual charged atomic ions, serving as qubits. Ion traps enable exceptionally stable and long-lived quantum states, making them ideal for quantum computing and simulation.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Photonic Integrated Circuit (PIC)</div>
+                        <div class="term-definition">An integrated circuit that manipulates photons (particles of light) on a chip-scale device. PICs are fundamental components in photonic quantum computing and quantum communication systems, enabling compact, scalable, and efficient quantum optics applications.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Optical Parametric Oscillator (OPO)</div>
+                        <div class="term-definition">A nonlinear optical device that converts photons at a single input frequency into correlated pairs of photons at different frequencies (signal and idler). OPOs are vital for generating entangled photons and squeezing states essential in quantum communication and computation.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Waveguide</div>
+                        <div class="term-definition">A physical structure guiding electromagnetic waves, particularly photons, along a predefined path. In quantum computing, waveguides efficiently route quantum signals and couple photonic components within integrated quantum systems.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Memory</div>
+                        <div class="term-definition">Devices capable of coherently storing and retrieving quantum states for extended durations. Quantum memory is essential in quantum networking and communication, enabling synchronization, buffering, and long-distance entanglement distribution.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Parametric Amplifier</div>
+                        <div class="term-definition">A quantum-limited amplifier employing nonlinear interactions to amplify weak quantum signals without adding significant noise. Parametric amplifiers improve readout fidelity of quantum measurements and are essential for high-quality quantum state detection.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">FPGA-based Quantum Controllers</div>
+                        <div class="term-definition">Quantum hardware controllers utilizing field-programmable gate arrays (FPGAs) to generate precise timing, sequencing, and waveform shaping for quantum gates and measurements. FPGA controllers provide real-time feedback, essential for error correction and adaptive quantum algorithms.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Qubit Coupler</div>
+                        <div class="term-definition">A physical component facilitating controlled interaction between qubits, enabling two-qubit gates and entanglement. High-performance qubit couplers enhance qubit connectivity, reduce gate errors, and are critical for building scalable quantum architectures.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category" id="quantum-software">
+                <h2>Quantum Software and Compilation</h2>
+                <div class="terms-grid">
+                    <div class="term">
+                        <div class="term-name">Quantum Compiler</div>
+                        <div class="term-definition">Software that translates high-level quantum algorithms into optimized, low-level quantum gate instructions tailored for execution on specific quantum hardware. Quantum compilers ensure efficient and accurate realization of quantum circuits.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Transpiler</div>
+                        <div class="term-definition">A specialized compiler tool that converts quantum circuits from one representation or quantum hardware architecture to another, optimizing for gate count, depth, connectivity, and error mitigation. Essential for running quantum algorithms across diverse quantum backends.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Cross-Hardware Abstraction</div>
+                        <div class="term-definition">A software capability enabling quantum programs written once to run seamlessly on multiple quantum hardware platforms without modification. Cross-hardware abstraction simplifies quantum development and reduces vendor lock-in.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum SDK</div>
+                        <div class="term-definition">A Quantum Software Development Kit provides libraries, tools, and environments for building, testing, and executing quantum algorithms. SDKs facilitate streamlined quantum application development and experimentation.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">OpenQASM</div>
+                        <div class="term-definition">An open-source, hardware-agnostic intermediate quantum assembly language widely used for describing quantum circuits. OpenQASM allows standardized communication between quantum compilers, simulators, and hardware.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Cirq</div>
+                        <div class="term-definition">An open-source Python framework developed by Google for constructing, simulating, and optimizing quantum circuits. Cirq emphasizes fine-grained control of quantum operations, suited for near-term quantum hardware.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">PyQuil</div>
+                        <div class="term-definition">A Python-based quantum programming framework developed by Rigetti Computing, designed to build, simulate, and execute quantum programs on Rigetti quantum processors and other quantum hardware through the Quil language.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Qiskit Runtime</div>
+                        <div class="term-definition">A quantum computing service provided by IBM, enabling users to execute quantum programs in an environment optimized for performance and speed. Qiskit Runtime significantly reduces execution time by minimizing classical and quantum hardware interactions.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Intermediate Representation (QIR)</div>
+                        <div class="term-definition">A hardware-agnostic, low-level quantum programming representation designed to standardize how quantum programs are expressed. QIR, similar to LLVM IR in classical computing, supports cross-platform quantum software portability and optimization.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Just-In-Time (JIT) Compilation</div>
+                        <div class="term-definition">A quantum compilation approach where quantum circuits are dynamically compiled immediately before execution. JIT compilation adapts circuit optimizations to real-time hardware conditions, enhancing execution efficiency.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Runtime Environment</div>
+                        <div class="term-definition">An integrated system combining classical and quantum computational resources for executing quantum programs. Quantum runtime environments manage resources, scheduling, and optimization tasks essential for efficient quantum computation.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Operating System</div>
+                        <div class="term-definition">Software infrastructure designed specifically to manage and coordinate quantum computing resources, including hardware management, task scheduling, qubit allocation, and error correction. Quantum OS provides seamless interactions between classical and quantum components.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Circuit Optimization</div>
+                        <div class="term-definition">Techniques and processes aimed at improving quantum circuits by reducing complexity, gate counts, depth, and error susceptibility. Circuit optimization enhances performance, enabling execution on current noisy quantum hardware.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Middleware</div>
+                        <div class="term-definition">Software components bridging quantum hardware and higher-level applications, managing tasks like hardware abstraction, error mitigation, job scheduling, and circuit optimization. Quantum middleware simplifies and accelerates quantum software development.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category" id="quantum-communication">
+                <h2>Quantum Communication and Networks</h2>
+                <div class="terms-grid">
+                    <div class="term">
+                        <div class="term-name">Quantum Interconnect</div>
+                        <div class="term-definition">Hardware and methods enabling connections between multiple quantum processing units (QPUs) or distant qubits. Quantum interconnects allow for modular quantum computing architectures and scalable distributed quantum systems through technologies such as photonic links and ion shuttling.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Key Distribution (QKD)</div>
+                        <div class="term-definition">A secure communication method leveraging quantum mechanics principles to distribute encryption keys between parties. QKD provides information-theoretic security, ensuring detection of any interception attempts due to quantum measurement effects.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Teleportation</div>
+                        <div class="term-definition">A quantum protocol that transfers the exact quantum state of a particle (qubit) from one location to another without physically moving the particle itself, using classical communication and pre-shared entanglement. Quantum teleportation underpins quantum communication and distributed quantum computing.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Internet</div>
+                        <div class="term-definition">A global communication infrastructure leveraging quantum mechanics for secure communication, quantum computation sharing, and distributed quantum information processing. A quantum internet enables applications like secure communication, quantum sensing networks, and distributed quantum computing.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Repeater</div>
+                        <div class="term-definition">A device or system designed to extend quantum communication distances by overcoming quantum signal degradation and losses. Quantum repeaters use entanglement swapping and quantum memory to reliably distribute entanglement over long distances.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Entanglement Distribution</div>
+                        <div class="term-definition">The process of generating, maintaining, and sharing entangled quantum states between distant quantum nodes. Entanglement distribution is foundational to quantum communication, quantum teleportation, and distributed quantum computing.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Channel</div>
+                        <div class="term-definition">A communication medium capable of transmitting quantum information (qubits) between locations while preserving quantum coherence. Quantum channels can be optical fibers, free-space optical links, or specialized waveguides optimized for quantum communication.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Satellite Communication</div>
+                        <div class="term-definition">Quantum communication leveraging satellite-based infrastructure to achieve ultra-long-distance entanglement distribution and quantum key distribution. Quantum satellite communication enables global-scale secure quantum networks.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Network Nodes</div>
+                        <div class="term-definition">Individual quantum devices or processors capable of generating, storing, processing, and sharing quantum states within a quantum communication network. Network nodes form the backbone of quantum internet architectures, supporting distributed quantum applications.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category" id="quantum-cryptography">
+                <h2>Quantum Cryptography</h2>
+                <div class="terms-grid">
+                    <div class="term">
+                        <div class="term-name">Post-Quantum Cryptography (PQC)</div>
+                        <div class="term-definition">Cryptographic algorithms designed to remain secure against attacks from quantum computers. PQC methods, such as lattice-based or code-based cryptography, aim to replace classical encryption algorithms vulnerable to quantum attacks, ensuring long-term data security.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Safe Algorithms</div>
+                        <div class="term-definition">Encryption and cryptographic algorithms explicitly developed to withstand potential attacks from quantum computing. Quantum-safe algorithms secure classical data against quantum threats, forming the core of post-quantum cryptography.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum-Resistant Encryption</div>
+                        <div class="term-definition">Cryptographic techniques designed to resist decryption attempts by powerful quantum computers. Quantum-resistant encryption ensures confidentiality and integrity of sensitive information in the quantum computing era.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">BB84 Protocol</div>
+                        <div class="term-definition">The first practical Quantum Key Distribution (QKD) protocol proposed by Charles Bennett and Gilles Brassard in 1984. BB84 uses photon polarization to securely distribute encryption keys, ensuring absolute detection of eavesdropping attempts through quantum mechanics principles.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">E91 Protocol</div>
+                        <div class="term-definition">A quantum key distribution scheme introduced by Artur Ekert in 1991. The E91 protocol leverages quantum entanglement and Bell's theorem to securely distribute cryptographic keys and detect potential eavesdropping through quantum correlation measurements.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Cryptanalysis</div>
+                        <div class="term-definition">The study and practice of breaking cryptographic systems using quantum computing capabilities, exploiting quantum algorithms like Shor's algorithm. Quantum cryptanalysis poses a significant threat to traditional cryptography, motivating the development of quantum-safe cryptographic techniques.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category" id="quantum-concepts">
+                <h2>Quantum Concepts & Phenomena</h2>
+                <div class="terms-grid">
+                    <div class="term">
+                        <div class="term-name">Coherence Time</div>
+                        <div class="term-definition">The duration over which a qubit maintains its quantum state without significant degradation. Longer coherence times enhance quantum computation and fidelity, especially crucial in current noisy quantum systems (NISQ era).</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Entanglement</div>
+                        <div class="term-definition">A quantum phenomenon where two or more quantum particles become interconnected, with states instantly correlated regardless of spatial separation. Entanglement is fundamental to quantum computing, communication, and teleportation.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Superposition</div>
+                        <div class="term-definition">The quantum principle allowing particles to simultaneously exist in multiple states until measured. Superposition enables quantum computers to process exponentially many possibilities at once, underpinning quantum speed-up.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Decoherence</div>
+                        <div class="term-definition">The process by which quantum systems lose their quantum properties (such as superposition and entanglement) through interactions with their environment. Decoherence is a primary challenge limiting quantum hardware performance.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Noise</div>
+                        <div class="term-definition">Unwanted disturbances or fluctuations affecting quantum systems, leading to errors in quantum computations. Quantum noise arises from environmental interactions, control inaccuracies, and intrinsic quantum fluctuations.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum State Preparation</div>
+                        <div class="term-definition">The procedure of initializing qubits into specific quantum states required for performing quantum computations. Accurate quantum state preparation is vital for reliable execution of quantum algorithms.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Measurement Problem</div>
+                        <div class="term-definition">A foundational question in quantum mechanics concerning how and why quantum states collapse to definite outcomes upon measurement. The measurement problem highlights the complexities and interpretations of quantum theory.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">No-Cloning Theorem</div>
+                        <div class="term-definition">A fundamental theorem stating it is impossible to create identical copies of an arbitrary unknown quantum state. The no-cloning theorem ensures security in quantum cryptography and influences quantum communication protocols.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category" id="quantum-architectures">
+                <h2>Quantum Computing Architectures</h2>
+                <div class="terms-grid">
+                    <div class="term">
+                        <div class="term-name">Gate-Based Quantum Computer</div>
+                        <div class="term-definition">A quantum computing architecture using discrete quantum gates—analogous to classical logic gates—to manipulate quantum states. Gate-based systems are universal, allowing the implementation of general-purpose quantum algorithms used by IBM, Google, and IonQ.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Annealing Quantum Computer</div>
+                        <div class="term-definition">A quantum computer designed to solve optimization problems by exploiting quantum annealing, a process distinct from gate-based computation. Quantum annealers (e.g., D-Wave systems) leverage quantum tunneling to efficiently search solution spaces.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Hybrid Quantum-Classical Computing</div>
+                        <div class="term-definition">A computing paradigm combining quantum and classical processing elements, optimizing problem-solving by delegating tasks to appropriate hardware. Hybrid approaches, such as variational quantum algorithms, enable near-term quantum applications on current hardware.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Distributed Quantum Computing</div>
+                        <div class="term-definition">An architecture where quantum computing tasks are distributed across multiple interconnected quantum processors or nodes, exchanging quantum and classical information. This approach improves scalability and supports larger quantum applications.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Modular Quantum Computing</div>
+                        <div class="term-definition">An architectural approach assembling multiple smaller quantum processors (modules) into a larger, scalable quantum system. Modules communicate via quantum interconnects, enabling easier scaling and fault-tolerance management.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Photonic Quantum Computing</div>
+                        <div class="term-definition">Quantum computing architecture utilizing photons as qubits. Photonic systems, pursued by companies like Xanadu and PsiQuantum, offer benefits in scalability, room-temperature operation, and high-speed quantum communication.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category" id="performance-metrics">
+                <h2>Performance Metrics</h2>
+                <div class="terms-grid">
+                    <div class="term">
+                        <div class="term-name">Gate Fidelity</div>
+                        <div class="term-definition">A measure of the accuracy with which quantum gates perform their intended operations. High gate fidelity is critical for executing complex quantum circuits reliably and maintaining quantum coherence throughout computation.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Advantage</div>
+                        <div class="term-definition">The point at which a quantum computer performs a specific computational task significantly faster or more efficiently than the best-known classical algorithm. Achieving quantum advantage demonstrates practical, real-world superiority of quantum computing over classical approaches.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Circuit Depth</div>
+                        <div class="term-definition">The number of sequential layers or steps of quantum gates in a quantum circuit. Minimizing circuit depth reduces quantum errors and enhances coherence by shortening execution time.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Circuit Width</div>
+                        <div class="term-definition">The number of qubits actively used in a quantum circuit. Circuit width directly impacts the complexity and resource requirements of quantum algorithms.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Qubit Connectivity</div>
+                        <div class="term-definition">A metric describing how qubits within a quantum processor are physically interconnected. Higher connectivity enables efficient implementation of complex quantum circuits with fewer overhead operations such as qubit swaps.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Gate Speed</div>
+                        <div class="term-definition">The time required for a quantum gate operation to complete. Faster gate speeds help reduce decoherence effects and improve overall quantum computation performance.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Readout Fidelity</div>
+                        <div class="term-definition">The accuracy with which the state of a qubit is measured or read out at the end of a quantum computation. High readout fidelity is essential for reliable quantum computation outcomes.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Error Rates</div>
+                        <div class="term-definition">A measure of how frequently quantum gates, qubit measurements, or operations deviate from their intended outcomes. Lower error rates are crucial for achieving fault-tolerant and practical quantum computation.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Efficiency</div>
+                        <div class="term-definition">A metric describing the efficiency of quantum detectors or measurement devices in accurately detecting quantum states or signals. High quantum efficiency enhances overall system performance in quantum computing and quantum communication.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Decoherence Rate</div>
+                        <div class="term-definition">The rate at which quantum systems lose their quantum properties due to interactions with the environment. Lower decoherence rates indicate more stable quantum states and better qubit coherence over time.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Scalability Factor</div>
+                        <div class="term-definition">A measure indicating how effectively a quantum computing architecture or platform can grow in size or complexity without encountering prohibitive performance degradation or resource demands. High scalability is essential for realizing large-scale quantum applications.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category" id="quantum-programming">
+                <h2>Quantum Programming & Productivity</h2>
+                <div class="terms-grid">
+                    <div class="term">
+                        <div class="term-name">Quantum Programming Language (QPL)</div>
+                        <div class="term-definition">A programming language designed specifically to represent and manipulate quantum information and operations, integrating unique quantum phenomena like superposition and entanglement.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Expressiveness (Quantum Programming)</div>
+                        <div class="term-definition">A measure of how effectively a quantum programming language allows concise and clear representation of quantum algorithms and logic, impacting productivity and maintainability.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Declarative Quantum Programming</div>
+                        <div class="term-definition">A high-level quantum programming paradigm that emphasizes algorithmic intent and logic over detailed implementation, simplifying quantum software development. Example: Classiq's Qmod.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Functional Quantum Programming</div>
+                        <div class="term-definition">Quantum programming paradigm using functional abstractions (e.g., lambda functions), promoting modularity and composability. Example: Classiq's Qmod.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Programming Abstraction</div>
+                        <div class="term-definition">Mechanisms within quantum languages that hide complexity by enabling high-level representation of quantum algorithms, enhancing clarity and productivity.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Software Complexity Metrics</div>
+                        <div class="term-definition">Metrics such as Cyclomatic Complexity, Lines of Code, and Halstead Complexity adapted to evaluate the productivity, readability, and cognitive load of quantum code.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Cyclomatic Complexity (Quantum)</div>
+                        <div class="term-definition">Measures complexity based on the number of independent execution paths in quantum programs, reflecting the ease of debugging and algorithm comprehension.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Halstead Complexity (Quantum)</div>
+                        <div class="term-definition">Measures quantum code complexity using operator and operand counts, providing insights into cognitive load and maintainability of quantum programs.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Cognitive Load</div>
+                        <div class="term-definition">The mental effort required to design, implement, and maintain quantum software, influenced by language abstraction and code complexity.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Algorithm Scalability</div>
+                        <div class="term-definition">The capacity of a quantum programming language to clearly and efficiently represent complex quantum algorithms without excessive code expansion or complexity.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Modularity & Reusability</div>
+                        <div class="term-definition">Language features allowing quantum algorithms to be written as reusable, modular components, promoting scalable quantum software development.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Type System</div>
+                        <div class="term-definition">Structures within a quantum language that define and enforce rules for quantum data types, ensuring algorithm correctness and reducing errors.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Control Structures</div>
+                        <div class="term-definition">Language constructs for classical control of quantum operations (e.g., loops, conditionals) impacting readability, structure, and complexity of quantum code.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Programming Paradigms (Imperative vs. Declarative)</div>
+                        <div class="term-definition">Contrasts languages focused on explicit quantum circuit construction (imperative) against those emphasizing algorithmic description (declarative), influencing programmer productivity and code readability.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Code Verbosity</div>
+                        <div class="term-definition">The length and complexity of quantum source code required to express algorithms clearly, affecting developer productivity and maintainability.</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="floating-nav" id="floatingNav">
+            <a href="#qubits"></a>
+            <a href="#quantum-algorithms"></a>
+            <a href="#benchmarking"></a>
+            <a href="#quantum-error-correction"></a>
+            <a href="#quantum-hardware"></a>
+            <a href="#quantum-software"></a>
+        </div>
+
+        <button class="back-to-top" id="backToTop">↑</button>
+    </div>
+
+    <!-- Floating quantum particles -->
+    <div class="quantum-particle" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+    <div class="quantum-particle" style="top: 60%; left: 80%; animation-delay: 2s;"></div>
+    <div class="quantum-particle" style="top: 30%; left: 70%; animation-delay: 4s;"></div>
+
+    <script>
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const terms = document.querySelectorAll('.term');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            terms.forEach(term => {
+                const termName = term.querySelector('.term-name').textContent.toLowerCase();
+                const termDefinition = term.querySelector('.term-definition').textContent.toLowerCase();
+                
+                if (termName.includes(searchTerm) || termDefinition.includes(searchTerm)) {
+                    term.style.display = 'block';
+                } else {
+                    term.style.display = searchTerm === '' ? 'block' : 'none';
+                }
+            });
+        });
+
+        // Back to top functionality
+        const backToTop = document.getElementById('backToTop');
+        const floatingNav = document.getElementById('floatingNav');
+
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+                floatingNav.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+                floatingNav.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Floating navigation active state
+        const sections = document.querySelectorAll('.category');
+        const navLinks = document.querySelectorAll('.floating-nav a');
+
+        window.addEventListener('scroll', function() {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Add quantum particles dynamically
+        function createQuantumParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'quantum-particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 6 + 's';
+            particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+            document.body.appendChild(particle);
+
+            // Remove particle after animation
+            setTimeout(() => {
+                if (particle.parentNode) {
+                    particle.parentNode.removeChild(particle);
+                }
+            }, 10000);
+        }
+
+        // Create particles periodically
+        setInterval(createQuantumParticle, 3000);
+
+        // Enhanced search with highlighting
+        function highlightText(element, searchTerm) {
+            const innerHTML = element.innerHTML;
+            const index = innerHTML.toLowerCase().indexOf(searchTerm.toLowerCase());
+            if (index >= 0 && searchTerm.length > 0) {
+                element.innerHTML = innerHTML.substring(0, index) + 
+                    '<mark style="background: #40e0ff; color: #0a0a0a; padding: 2px 4px; border-radius: 3px;">' + 
+                    innerHTML.substring(index, index + searchTerm.length) + '</mark>' + 
+                    innerHTML.substring(index + searchTerm.length);
+            }
+        }
+
+        function removeHighlights() {
+            document.querySelectorAll('mark').forEach(mark => {
+                const parent = mark.parentNode;
+                parent.replaceChild(document.createTextNode(mark.textContent), mark);
+                parent.normalize();
+            });
+        }
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            removeHighlights();
+            
+            terms.forEach(term => {
+                const termName = term.querySelector('.term-name');
+                const termDefinition = term.querySelector('.term-definition');
+                const termNameText = termName.textContent.toLowerCase();
+                const termDefinitionText = termDefinition.textContent.toLowerCase();
+                
+                if (termNameText.includes(searchTerm) || termDefinitionText.includes(searchTerm)) {
+                    term.style.display = 'block';
+                    if (searchTerm.length > 0) {
+                        if (termNameText.includes(searchTerm)) {
+                            highlightText(termName, searchTerm);
+                        }
+                        if (termDefinitionText.includes(searchTerm)) {
+                            highlightText(termDefinition, searchTerm);
+                        }
+                    }
+                } else {
+                    term.style.display = searchTerm === '' ? 'block' : 'none';
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Apply animation observer to terms
+        terms.forEach(term => {
+            term.style.opacity = '0';
+            term.style.transform = 'translateY(30px)';
+            term.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(term);
+        });
+    </script>
+</body>
+</html>
