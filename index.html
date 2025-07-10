@@ -1042,23 +1042,49 @@
     <div class="quantum-particle" style="top: 30%; left: 70%; animation-delay: 4s;"></div>
 
     <script>
-        // Search functionality
-        const searchInput = document.getElementById('searchInput');
-        const terms = document.querySelectorAll('.term');
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Search functionality
+            const searchInput = document.getElementById('searchInput');
+            const terms = document.querySelectorAll('.term');
 
-        searchInput.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            
-            terms.forEach(term => {
-                const termName = term.querySelector('.term-name').textContent.toLowerCase();
-                const termDefinition = term.querySelector('.term-definition').textContent.toLowerCase();
-                
-                if (termName.includes(searchTerm) || termDefinition.includes(searchTerm)) {
-                    term.style.display = 'block';
-                } else {
-                    term.style.display = searchTerm === '' ? 'block' : 'none';
-                }
-            });
+            if (searchInput && terms.length > 0) {
+                searchInput.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase().trim();
+                    
+                    // Remove previous highlights
+                    removeHighlights();
+                    
+                    terms.forEach(term => {
+                        const termName = term.querySelector('.term-name');
+                        const termDefinition = term.querySelector('.term-definition');
+                        
+                        if (termName && termDefinition) {
+                            const termNameText = termName.textContent.toLowerCase();
+                            const termDefinitionText = termDefinition.textContent.toLowerCase();
+                            
+                            const matchesName = termNameText.includes(searchTerm);
+                            const matchesDefinition = termDefinitionText.includes(searchTerm);
+                            
+                            if (searchTerm === '' || matchesName || matchesDefinition) {
+                                term.style.display = 'block';
+                                
+                                // Add highlighting if there's a search term
+                                if (searchTerm.length > 0) {
+                                    if (matchesName) {
+                                        highlightText(termName, searchTerm);
+                                    }
+                                    if (matchesDefinition) {
+                                        highlightText(termDefinition, searchTerm);
+                                    }
+                                }
+                            } else {
+                                term.style.display = 'none';
+                            }
+                        }
+                    });
+                });
+            }
         });
 
         // Back to top functionality
@@ -1138,6 +1164,19 @@
 
         // Enhanced search with highlighting
         function highlightText(element, searchTerm) {
+            if (!element || !searchTerm || searchTerm.length === 0) return;
+            
+            const originalText = element.textContent;
+            const regex = new RegExp(`(${escapeRegExp(searchTerm)})`, 'gi');
+            
+            element.innerHTML = originalText.replace(regex, 
+                '<mark style="background: #40e0ff; color: #0a0a0a; padding: 2px 4px; border-radius: 3px; font-weight: bold;">$1</mark>'
+            );
+        }
+
+        function escapeRegExp(string) {
+            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\        // Enhanced search with highlighting
+        function highlightText(element, searchTerm) {
             const innerHTML = element.innerHTML;
             const index = innerHTML.toLowerCase().indexOf(searchTerm.toLowerCase());
             if (index >= 0 && searchTerm.length > 0) {
@@ -1153,6 +1192,17 @@
                 const parent = mark.parentNode;
                 parent.replaceChild(document.createTextNode(mark.textContent), mark);
                 parent.normalize();
+            });
+        }');
+        }
+
+        function removeHighlights() {
+            document.querySelectorAll('mark').forEach(mark => {
+                const parent = mark.parentNode;
+                if (parent) {
+                    parent.replaceChild(document.createTextNode(mark.textContent), mark);
+                    parent.normalize();
+                }
             });
         }
 
