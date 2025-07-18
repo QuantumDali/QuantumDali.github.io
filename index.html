@@ -475,12 +475,12 @@
                     <a onclick="openAccordion('quantum-error-correction')">Quantum Error Correction</a>
                     <a onclick="openAccordion('quantum-hardware')">Quantum Hardware and Components</a>
                     <a onclick="openAccordion('quantum-software')">Quantum Software and Compilation</a>
-                    <a onclick="openAccordion('quantum-communication')">Quantum Communication and Networks</a>
-                    <a onclick="openAccordion('quantum-cryptography')">Quantum Cryptography</a>
+                    <a onclick="openAccordion('quantum-communication')">Quantum Communication and Cryptography</a>
                     <a onclick="openAccordion('quantum-concepts')">Quantum Concepts & Phenomena</a>
                     <a onclick="openAccordion('quantum-architectures')">Quantum Computing Architectures</a>
                     <a onclick="openAccordion('performance-metrics')">Performance Metrics</a>
                     <a onclick="openAccordion('quantum-programming')">Quantum Programming & Productivity</a>
+                    <a onclick="openAccordion('business-strategy')">Business Strategy & Implementation</a>
                 </div>
             </div>
 
@@ -634,10 +634,72 @@
                         <div class="term-name">Adiabatic Quantum Computation</div>
                         <div class="term-definition">A computational paradigm where a quantum system evolves slowly from an easily prepared initial state to the ground state of a complex Hamiltonian encoding the problem solution. The adiabatic theorem ensures that the system remains close to its instantaneous ground state, solving problems like optimization and sampling.</div>
                     </div>
+                    <div class="term">
+                         <div class="term-name">Quantum Phase Estimation</div>
+                        <div class="term-definition">An algorithm for determining the eigenvalues (phases) of a unitary operator. It serves as a critical subroutine in many quantum algorithms, notably Shor's algorithm and quantum simulations.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Deutsch-Jozsa Algorithm</div>
+                        <div class="term-definition">An early quantum algorithm that determines whether a Boolean function is constant (always returns the same value) or balanced (returns 0 for half the inputs and 1 for the other half) using only one function evaluation, demonstrating exponential speedup over deterministic classical algorithms.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Amplitude Amplification</div>
+                        <div class="term-definition">A generalization of Grover's search algorithm that amplifies the probability amplitudes of desired quantum states. This technique forms the foundation for many quantum algorithms and provides quadratic speedups for various computational problems.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Walk</div>
+                        <div class="term-definition">The quantum mechanical analogue of a classical random walk, where a quantum particle moves through a discrete structure according to quantum superposition and interference principles. Quantum walks achieve faster mixing times and form the basis for various quantum algorithms.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Chemistry Simulation</div>
+                        <div class="term-definition">Specialized quantum algorithms designed to simulate molecular systems and chemical reactions. These algorithms can potentially solve problems in drug discovery, catalyst design, and materials science that are intractable for classical computers.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">BQP-Complete</div>
+                        <div class="term-definition">A complexity class representing problems that are among the hardest in BQP (Bounded-Error Quantum Polynomial Time). These problems can be solved efficiently by quantum computers but are believed to be intractable for classical computers, representing the theoretical foundation for quantum computational advantage.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Complexity</div>
+                        <div class="term-definition">The study of computational complexity in quantum computing, analyzing the resources (time, space, qubits) required to solve problems on quantum computers. It encompasses the classification of problems based on their quantum computational difficulty.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Complexity Class</div>
+                        <div class="term-definition">A set of computational problems of related resource-based complexity. In quantum computing, important complexity classes include BQP (bounded-error quantum polynomial time), QMA (quantum Merlin-Arthur), and others that characterize what quantum computers can efficiently solve.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Difficulty Class</div>
+                        <div class="term-definition">A classification system for computational problems based on their inherent difficulty and the resources required to solve them. In quantum computing, this includes problems that are easy for quantum computers but hard for classical computers.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Exponential Speedup</div>
+                        <div class="term-definition">A quantum computational advantage where the quantum algorithm runs exponentially faster than the best known classical algorithm. Examples include Shor's factoring algorithm and certain quantum simulation problems.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Polynomial Time</div>
+                        <div class="term-definition">Algorithms that run in time polynomial in the input size, considered "efficient" in computational complexity theory. Many quantum algorithms achieve polynomial-time solutions to problems that require exponential time classically.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">NP Hard</div>
+                        <div class="term-definition">A class of computational problems that are at least as hard as the hardest problems in NP (nondeterministic polynomial time). While quantum computers cannot solve all NP-hard problems efficiently, they can provide significant speedups for some instances.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">NP Complete</div>
+                        <div class="term-definition">The subset of NP-hard problems that are also in NP, representing the most difficult problems in the NP complexity class. Quantum algorithms like QAOA aim to find approximate solutions to NP-complete optimization problems.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Speedup</div>
+                        <div class="term-definition">Any computational advantage achieved by quantum algorithms over classical algorithms, ranging from constant factor improvements to exponential speedups. The magnitude and type of speedup determines the practical value of quantum computing for specific applications.</div>
+                    </div>
                     </div>
                 </div>
             </div>
 
+
+
+
+
+
+            
             <div class="category" id="benchmarking">
                 <div class="category-header" onclick="toggleAccordion('benchmarking')">
                     Benchmarking (Quantum)
@@ -884,7 +946,7 @@
 
             <div class="category" id="quantum-communication">
                 <div class="category-header" onclick="toggleAccordion('quantum-communication')">
-                    Quantum Communication and Networks
+                    Quantum Communication and Cryptography
                     <span class="accordion-icon">▼</span>
                 </div>
                 <div class="category-content">
@@ -925,17 +987,6 @@
                         <div class="term-name">Quantum Network Nodes</div>
                         <div class="term-definition">Individual quantum devices or processors capable of generating, storing, processing, and sharing quantum states within a quantum communication network. Network nodes form the backbone of quantum internet architectures, supporting distributed quantum applications.</div>
                     </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="category" id="quantum-cryptography">
-                <div class="category-header" onclick="toggleAccordion('quantum-cryptography')">
-                    Quantum Cryptography
-                    <span class="accordion-icon">▼</span>
-                </div>
-                <div class="category-content">
-                    <div class="terms-grid">
                     <div class="term">
                         <div class="term-name">Post-Quantum Cryptography (PQC)</div>
                         <div class="term-definition">Cryptographic algorithms designed to remain secure against attacks from quantum computers. PQC methods, such as lattice-based or code-based cryptography, aim to replace classical encryption algorithms vulnerable to quantum attacks, ensuring long-term data security.</div>
@@ -1093,6 +1144,22 @@
                         <div class="term-name">Scalability Factor</div>
                         <div class="term-definition">A measure indicating how effectively a quantum computing architecture or platform can grow in size or complexity without encountering prohibitive performance degradation or resource demands. High scalability is essential for realizing large-scale quantum applications.</div>
                     </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Resource Estimation</div>
+                        <div class="term-definition">The analysis and calculation of physical resources (qubits, gates, time, error correction overhead) required to implement quantum algorithms on actual quantum hardware. Essential for determining feasibility and cost of quantum computations.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Noise Resilience</div>
+                        <div class="term-definition">The ability of quantum algorithms and systems to maintain functionality and produce meaningful results despite the presence of quantum noise and errors. Critical for near-term quantum computing applications in the NISQ era.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Supremacy</div>
+                        <div class="term-definition">The demonstration that a quantum computer can perform a specific computational task that is practically impossible for classical computers, regardless of whether the task has practical applications. This represents a milestone in quantum computing development.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Utility</div>
+                        <div class="term-definition">The achievement of quantum computing systems that can solve real-world problems of practical value better than classical methods. This represents the transition from academic demonstrations to commercially viable quantum applications.</div>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -1168,6 +1235,49 @@
                 </div>
             </div>
 
+            <div class="category" id="business-strategy">
+                <div class="category-header" onclick="toggleAccordion('business-strategy')">
+                    Business Strategy & Implementation
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="category-content">
+                    <div class="terms-grid">
+                    <div class="term">
+                        <div class="term-name">Quantum Proof of Concept (PoC)</div>
+                        <div class="term-definition">Initial demonstration projects designed to validate quantum computing feasibility for specific business problems. PoCs help organizations assess potential quantum advantages, understand implementation challenges, and justify further investment in quantum technologies.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Readiness Assessment</div>
+                        <div class="term-definition">A comprehensive evaluation of an organization's preparedness to adopt quantum computing technologies. This assessment covers technical infrastructure, workforce capabilities, strategic alignment, and potential use cases to develop a quantum adoption roadmap.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum-Classical Hybrid Workflow</div>
+                        <div class="term-definition">Business processes that strategically combine quantum and classical computing resources to optimize problem-solving. These workflows leverage each technology's strengths while managing integration challenges and resource allocation.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Technology Roadmap</div>
+                        <div class="term-definition">A strategic timeline and planning document outlining an organization's quantum technology development, adoption phases, resource requirements, and milestone targets. Essential for coordinating quantum initiatives with business objectives and technology evolution.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Workforce</div>
+                        <div class="term-definition">Skilled professionals trained in quantum computing technologies, algorithms, and applications. Building a quantum workforce requires specialized education, training programs, and strategic hiring to support quantum computing initiatives.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Literacy</div>
+                        <div class="term-definition">Basic understanding of quantum computing concepts, capabilities, and limitations necessary for business leaders and technical professionals to make informed decisions about quantum technology investments and applications.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum Skills Gap</div>
+                        <div class="term-definition">The shortage of qualified quantum computing professionals relative to industry demand. This gap encompasses theoretical knowledge, practical implementation skills, and domain expertise in applying quantum computing to specific business problems.</div>
+                    </div>
+                    <div class="term">
+                        <div class="term-name">Quantum-as-a-Service (QaaS)</div>
+                        <div class="term-definition">Cloud-based delivery model providing access to quantum computing resources, software, and expertise without requiring organizations to own quantum hardware. QaaS enables businesses to experiment with and deploy quantum applications cost-effectively.</div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
         <div class="floating-nav" id="floatingNav">
             <a onclick="openAccordion('qubits')"></a>
             <a onclick="openAccordion('quantum-algorithms')"></a>
@@ -1229,7 +1339,7 @@
             // Toggle the target accordion
             targetCategory.classList.toggle('active');
         }
-
+        
         function openAccordion(categoryId) {
             const allCategories = document.querySelectorAll('.category');
             const targetCategory = document.getElementById(categoryId);
@@ -1242,15 +1352,16 @@
             // Open the target accordion
             targetCategory.classList.add('active');
             
-            // Scroll to the section
+            // Scroll to the top of the section header
             setTimeout(() => {
-                targetCategory.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+                const headerTop = targetCategory.offsetTop - 20; // Small offset for better visual spacing
+                window.scrollTo({
+                    top: headerTop,
+                    behavior: 'smooth'
                 });
             }, 300);
         }
-
+       
         // Autocomplete functionality
         const searchInput = document.getElementById('searchInput');
         const autocompleteDropdown = document.getElementById('autocompleteDropdown');
