@@ -373,8 +373,8 @@
             color: white;
             border: none;
             border-radius: 50%;
-            width: 60px;
-            height: 60px;
+            width: 40px;
+            height: 40px;
             font-size: 1.5rem;
             cursor: pointer;
             box-shadow: 0 8px 25px rgba(64, 224, 255, 0.3);
@@ -1184,6 +1184,10 @@
                         <div class="term-definition">A high-level quantum programming paradigm that emphasizes algorithmic intent and logic over detailed implementation, simplifying quantum software development. Example: Classiq's Qmod.</div>
                     </div>
                     <div class="term">
+                        <div class="term-name">Imperative Quantum Programming</div>
+                        <div class="term-definition">A quantum programming paradigm that focuses on explicit, step-by-step construction of quantum circuits through detailed gate-by-gate instructions. In contrast to declarative approaches, imperative quantum programming requires developers to specify exactly how quantum operations should be executed, providing fine-grained control but requiring deeper knowledge of quantum circuit implementation.</div>
+                    </div>
+                    <div class="term">
                         <div class="term-name">Functional Quantum Programming</div>
                         <div class="term-definition">Quantum programming paradigm using functional abstractions (e.g., lambda functions), promoting modularity and composability. Example: Classiq's Qmod.</div>
                     </div>
@@ -1277,7 +1281,7 @@
                     </div>
                 </div>
             </div>
-
+        </div>    
         <div class="floating-nav" id="floatingNav">
             <a onclick="openAccordion('qubits')"></a>
             <a onclick="openAccordion('quantum-algorithms')"></a>
@@ -1285,6 +1289,12 @@
             <a onclick="openAccordion('quantum-error-correction')"></a>
             <a onclick="openAccordion('quantum-hardware')"></a>
             <a onclick="openAccordion('quantum-software')"></a>
+            <a onclick="openAccordion('quantum-communication')"></a>
+            <a onclick="openAccordion('quantum-concepts')"></a>
+            <a onclick="openAccordion('quantum-architectures')"></a>
+            <a onclick="openAccordion('performance-metrics')"></a>
+            <a onclick="openAccordion('quantum-programming')"></a>
+            <a onclick="openAccordion('business-strategy')"></a>
         </div>
 
         <button class="back-to-top" id="backToTop">↑</button>
@@ -1339,7 +1349,7 @@
             // Toggle the target accordion
             targetCategory.classList.toggle('active');
         }
-        
+
         function openAccordion(categoryId) {
             const allCategories = document.querySelectorAll('.category');
             const targetCategory = document.getElementById(categoryId);
@@ -1359,7 +1369,7 @@
                     top: headerTop,
                     behavior: 'smooth'
                 });
-            }, 300);
+            }, 600);
         }
        
         // Autocomplete functionality
