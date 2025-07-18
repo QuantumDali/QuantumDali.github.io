@@ -1,10 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quantum Computing Dictionary</title>
+    <title>Quantum Computing Dictionary | Classiq</title>
+    <meta name="description" content="Classiq's Quantum Dictionary: Comprehensive definitions and explanations for over 150 essential quantum computing terms across 12 categories.">
+ <!-- 
+    <link rel="canonical" href="https://classiq.io/quantum-dictionary"/>
+-->
     <style>
         * {
             margin: 0;
@@ -16,127 +19,150 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
             line-height: 1.6;
             color: #ffffff;
-            background: #0a0a0a;
+            background: #191919;
             min-height: 100vh;
         }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: #0a0a0a;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            color: white;
-            padding: 4rem 2rem;
+        .hero-section {
+            background: linear-gradient(135deg, #191919 0%, #2a2a2a 100%);
+            padding: 3rem 2rem 4rem;
             text-align: center;
             position: relative;
             overflow: hidden;
-            border-bottom: 1px solid #2a2a3e;
         }
 
-        .header::before {
+        .hero-section::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 30% 50%, rgba(64, 224, 255, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 80%, rgba(138, 43, 226, 0.1) 0%, transparent 50%);
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(215, 247, 91, 0.03) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
             pointer-events: none;
         }
 
-        .header h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            position: relative;
-            z-index: 1;
-            background: linear-gradient(135deg, #40e0ff, #8a2be2, #00ffff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
-        .header p {
-            font-size: 1.3rem;
-            opacity: 0.9;
+        .logo-container {
             position: relative;
-            z-index: 1;
-            color: #b8bcc8;
-            max-width: 600px;
+            z-index: 2;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            height: 50px;
+            filter: brightness(1.1);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
             margin: 0 auto;
         }
 
-        .content {
-            padding: 3rem 2rem;
-            background: #0a0a0a;
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #d7f75b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
         }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: #C9CBC0;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        .search-section { position: relative; }
+
 
         .search-container {
             position: relative;
-            max-width: 500px;
-            margin: 0 auto 3rem auto;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 60px;
+            padding: 1.2rem 2rem;
+            transition: all 0.3s ease;
+            z-index: 10001;
         }
 
-        .search-box {
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            border-radius: 50px;
-            padding: 1rem 2rem;
-            border: 1px solid #2a2a3e;
-            display: flex;
-            align-items: center;
+        .search-container:focus-within {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #d7f75b;
+            box-shadow: 0 0 30px rgba(215, 247, 91, 0.2);
+        }
+
+        .search-input {
             width: 100%;
-        }
-
-        .search-box input {
             background: transparent;
             border: none;
-            color: #ffffff;
-            font-size: 1rem;
-            width: 100%;
             outline: none;
+            color: #ffffff;
+            font-size: 1.1rem;
+            padding-left: 3rem;
         }
 
-        .search-box input::placeholder {
-            color: #6a6a8a;
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
         }
 
         .search-icon {
-            color: #40e0ff;
-            margin-right: 1rem;
+            position: absolute;
+            left: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #d7f75b;
+            font-size: 1.3rem;
         }
 
         .autocomplete-dropdown {
-            position: absolute;
-            top: 100%;
+            position: relative;
+            top: calc(100% + 5px);
             left: 0;
-            right: 0;
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            border: 1px solid #2a2a3e;
-            border-top: none;
-            border-radius: 0 0 16px 16px;
-            max-height: 300px;
+            width: 100%;
+            background: rgba(25, 25, 25, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 0 0 20px 20px;
+            max-height: 400px;
             overflow-y: auto;
-            z-index: 1000;
+            z-index: 10000;
             display: none;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        @media (max-width: 600px) {
+            .autocomplete-dropdown {
+                width: 90%;
+                left: 5%;
+                transform: none;
+            }
         }
 
         .autocomplete-item {
             padding: 1rem 2rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            border-bottom: 1px solid #2a2a3e;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             flex-direction: column;
         }
 
         .autocomplete-item:hover,
         .autocomplete-item.selected {
-            background: rgba(64, 224, 255, 0.1);
-            color: #40e0ff;
+            background: rgba(215, 247, 91, 0.1);
+            color: #d7f75b;
         }
 
         .autocomplete-item:last-child {
@@ -150,21 +176,357 @@
 
         .autocomplete-category {
             font-size: 0.85rem;
-            color: #8a2be2;
+            color: #C9CBC0;
             opacity: 0.8;
         }
 
-        .toc {
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .stats-bar {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .stats-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #d7f75b;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #C9CBC0;
+            opacity: 0.8;
+        }
+
+        .categories-grid {
+            display: block;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .category-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+            margin-bottom: 2rem;
+            scroll-margin-top: 100px;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #d7f75b 0%, #a8c74a 100%);
+        }
+
+        .category-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(215, 247, 91, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .category-header {
+            padding: 2.5rem 2rem 1.5rem;
+            background: linear-gradient(135deg, rgba(215, 247, 91, 0.08) 0%, transparent 100%);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .category-header:hover {
+            background: linear-gradient(135deg, rgba(215, 247, 91, 0.12) 0%, transparent 100%);
+        }
+
+        .category-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #d7f75b;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+
+        .accordion-toggle {
+            color: #d7f75b;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+            margin-left: 1rem;
+        }
+
+        .category-card.expanded .accordion-toggle {
+            transform: rotate(180deg);
+        }
+
+        .category-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 1rem;
+            background: #d7f75b;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #191919;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .category-description {
+            color: #C9CBC0;
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+
+        .terms-container {
+            padding: 0 2rem 2rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.3s ease;
+        }
+
+        .terms-grid {
+            display: grid;
+            gap: 0rem;
+            padding: 1.5rem;
+        }
+
+        .category-card.expanded .terms-container {
+            max-height: 10000px;
+            padding: 0 2rem 2rem;
+        }
+
+        .category-card:not(.expanded) .terms-container {
+            padding: 0 2rem 0;
+        }
+
+        .term {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 16px;
+            padding: 1.8rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .term::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #d7f75b 0%, #a8c74a 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .term:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(215, 247, 91, 0.2);
+            transform: translateX(8px);
+        }
+
+        .term:hover::before {
+            opacity: 1;
+        }
+
+        .term-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+
+
+        .term-badge {
+            background: rgba(215, 247, 91, 0.15);
+            color: #d7f75b;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            margin-left: auto;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .term-definition {
+            color: #C9CBC0;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #d7f75b;
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        .particle:nth-child(1) { top: 20%; left: 10%; animation: float1 12s ease-in-out infinite; }
+        .particle:nth-child(2) { top: 60%; left: 85%; animation: float2 15s ease-in-out infinite; }
+        .particle:nth-child(3) { top: 80%; left: 20%; animation: float3 18s ease-in-out infinite; }
+        .particle:nth-child(4) { top: 30%; left: 70%; animation: float1 20s ease-in-out infinite; }
+        .particle:nth-child(5) { top: 10%; left: 50%; animation: float2 14s ease-in-out infinite; }
+
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0.3; }
+            25% { transform: translate(30px, -20px) rotate(90deg); opacity: 0.6; }
+            50% { transform: translate(-10px, -40px) rotate(180deg); opacity: 0.8; }
+            75% { transform: translate(-30px, -10px) rotate(270deg); opacity: 0.4; }
+        }
+
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+            33% { transform: translate(-25px, -30px) scale(1.2); opacity: 0.7; }
+            66% { transform: translate(20px, -15px) scale(0.8); opacity: 0.5; }
+        }
+
+        @keyframes float3 {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+            50% { transform: translateY(-50px) rotate(180deg); opacity: 0.8; }
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, #d7f75b, #a8c74a);
+            color: #191919;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+            font-weight: bold;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+            @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .toc-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-content {
+                padding: 3rem 1rem;
+            }
+
+            .stats-content {
+                gap: 2rem;
+            }
+
+            .hero-section {
+                padding: 2rem 1rem 3rem;
+            }
+
+            .floating-nav {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .category-card {
+                min-width: unset;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #2a2a2a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #d7f75b, #a8c74a);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #a8c74a, #d7f75b);
+        }
+
+        .toc {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
             padding: 2.5rem;
             margin-bottom: 4rem;
-            border: 1px solid #2a2a3e;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
         }
 
         .toc h2 {
-            color: #40e0ff;
+            color: #d7f75b;
             margin-bottom: 1.5rem;
             font-size: 1.8rem;
             font-weight: 600;
@@ -177,15 +539,15 @@
         }
 
         .toc a {
-            color: #b8bcc8;
+            color: #C9CBC0;
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s ease;
             display: block;
             padding: 1rem 1.5rem;
             border-radius: 12px;
-            background: rgba(26, 26, 46, 0.5);
-            border: 1px solid #2a2a3e;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             position: relative;
             overflow: hidden;
             cursor: pointer;
@@ -198,132 +560,19 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(64, 224, 255, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(215, 247, 91, 0.1), transparent);
             transition: left 0.5s ease;
         }
 
         .toc a:hover {
-            color: #40e0ff;
-            border-color: #40e0ff;
+            color: #d7f75b;
+            border-color: #d7f75b;
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(64, 224, 255, 0.2);
+            box-shadow: 0 8px 25px rgba(215, 247, 91, 0.2);
         }
 
         .toc a:hover::before {
             left: 100%;
-        }
-
-        .category {
-            margin-bottom: 2rem;
-            scroll-margin-top: 100px;
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            border-radius: 16px;
-            border: 1px solid #2a2a3e;
-            overflow: hidden;
-        }
-
-        .category-header {
-            font-size: 2.5rem;
-            color: #ffffff;
-            padding: 2rem;
-            border-bottom: 2px solid #40e0ff;
-            position: relative;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: linear-gradient(135deg, rgba(64, 224, 255, 0.05), rgba(138, 43, 226, 0.05));
-        }
-
-        .category-header:hover {
-            background: linear-gradient(135deg, rgba(64, 224, 255, 0.1), rgba(138, 43, 226, 0.1));
-        }
-
-        .category-header::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 2rem;
-            width: 120px;
-            height: 2px;
-            background: linear-gradient(135deg, #40e0ff, #8a2be2);
-            border-radius: 2px;
-        }
-
-        .accordion-icon {
-            font-size: 1.5rem;
-            color: #40e0ff;
-            transition: transform 0.3s ease;
-        }
-
-        .category.active .accordion-icon {
-            transform: rotate(180deg);
-        }
-
-        .category-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease;
-        }
-
-        .category.active .category-content {
-            max-height: 10000px;
-        }
-
-        .terms-grid {
-            display: grid;
-            gap: 1.5rem;
-            padding: 2rem;
-        }
-
-        .term {
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            border-radius: 16px;
-            padding: 2rem;
-            border: 1px solid #2a2a3e;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .term::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #40e0ff, #8a2be2, #00ffff);
-        }
-
-        .term:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(64, 224, 255, 0.15);
-            border-color: #40e0ff;
-        }
-
-        .term-name {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #40e0ff;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-        }
-
-        .term-name::before {
-            content: '◆';
-            color: #8a2be2;
-            margin-right: 0.8rem;
-            font-size: 1rem;
-        }
-
-        .term-definition {
-            color: #b8bcc8;
-            font-size: 1rem;
-            line-height: 1.7;
         }
 
         .floating-nav {
@@ -331,11 +580,11 @@
             top: 50%;
             right: 2rem;
             transform: translateY(-50%);
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 50px;
             padding: 1rem;
-            border: 1px solid #2a2a3e;
-            backdrop-filter: blur(10px);
             z-index: 1000;
             opacity: 0;
             visibility: hidden;
@@ -352,7 +601,7 @@
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background: #2a2a3e;
+            background: rgba(255, 255, 255, 0.3);
             margin: 0.5rem 0;
             transition: all 0.3s ease;
             position: relative;
@@ -361,135 +610,89 @@
 
         .floating-nav a:hover,
         .floating-nav a.active {
-            background: #40e0ff;
-            box-shadow: 0 0 15px rgba(64, 224, 255, 0.5);
-        }
-
-        .back-to-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: linear-gradient(135deg, #40e0ff, #8a2be2);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 8px 25px rgba(64, 224, 255, 0.3);
-            transition: all 0.3s ease;
-            opacity: 0;
-            visibility: hidden;
-            z-index: 1000;
-        }
-
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .back-to-top:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 35px rgba(64, 224, 255, 0.4);
-        }
-
-        .quantum-particle {
-            position: fixed;
-            width: 4px;
-            height: 4px;
-            background: #40e0ff;
-            border-radius: 50%;
-            pointer-events: none;
-            opacity: 0.6;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
-
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2.5rem;
-            }
-            
-            .toc-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .category-header {
-                font-size: 2rem;
-            }
-            
-            .content {
-                padding: 2rem 1rem;
-            }
-
-            .floating-nav {
-                display: none;
-            }
-        }
-
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #1a1a2e;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #40e0ff, #8a2be2);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #8a2be2, #40e0ff);
+            background: #d7f75b;
+            box-shadow: 0 0 15px rgba(215, 247, 91, 0.5);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Quantum Computing Dictionary</h1>
-            <p>Comprehensive reference for quantum computing terms and concepts - a work in progress by Dr. Erik Garcell</p>
-        </div>
+    <div class="floating-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
 
-        <div class="content">
-            <div class="search-container">
-                <div class="search-box">
-                    <span class="search-icon">🔍</span>
-                    <input type="text" placeholder="Search quantum terms..." id="searchInput" autocomplete="off">
+    <section class="hero-section">
+        <div class="logo-container">
+            <img src="https://cdn.prod.website-files.com/60000db7a5f449af5e4590ac/60003654676fe148a0178cc2_Logo.svg" alt="Classiq Logo" class="logo">
+        </div>
+        
+        <div class="hero-content">
+            <h1 class="hero-title">Quantum Dictionary</h1>
+            <p class="hero-subtitle">Comprehensive reference for quantum computing terms and concepts</p>
+            
+            <div class="search-section">
+                <div class="search-container">
+                    <div class="search-icon">⚡</div>
+                    <input type="text" class="search-input" placeholder="Search quantum terms, algorithms, concepts..." autocomplete="off" id="searchInput">
                 </div>
                 <div class="autocomplete-dropdown" id="autocompleteDropdown"></div>
             </div>
+        </div>
+    </section>
 
-            <div class="toc">
-                <h2>Table of Contents</h2>
-                <div class="toc-grid">
-                    <a onclick="openAccordion('qubits')">Qubits</a>
-                    <a onclick="openAccordion('quantum-algorithms')">Quantum Algorithms</a>
-                    <a onclick="openAccordion('benchmarking')">Benchmarking (Quantum)</a>
-                    <a onclick="openAccordion('quantum-error-correction')">Quantum Error Correction</a>
-                    <a onclick="openAccordion('quantum-hardware')">Quantum Hardware and Components</a>
-                    <a onclick="openAccordion('quantum-software')">Quantum Software and Compilation</a>
-                    <a onclick="openAccordion('quantum-communication')">Quantum Communication and Cryptography</a>
-                    <a onclick="openAccordion('quantum-concepts')">Quantum Concepts & Phenomena</a>
-                    <a onclick="openAccordion('quantum-architectures')">Quantum Computing Architectures</a>
-                    <a onclick="openAccordion('performance-metrics')">Performance Metrics</a>
-                    <a onclick="openAccordion('quantum-programming')">Quantum Programming & Productivity</a>
-                    <a onclick="openAccordion('business-strategy')">Business Strategy & Implementation</a>
+    <main class="main-content">
+        <div class="stats-bar">
+            <div class="stats-content">
+                <div class="stat-item">
+                    <span class="stat-number">150+</span>
+                    <span class="stat-label">Terms Defined</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">12</span>
+                    <span class="stat-label">Categories</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">Live</span>
+                    <span class="stat-label">Updates</span>
                 </div>
             </div>
+        </div>
 
-            <div class="category active" id="qubits">
-                <div class="category-header" onclick="toggleAccordion('qubits')">
-                    Qubits
-                    <span class="accordion-icon">▼</span>
+        <div class="toc">
+            <h2>Table of Contents</h2>
+            <div class="toc-grid">
+                <a onclick="scrollToCategory('qubits')">Qubits</a>
+                <a onclick="scrollToCategory('quantum-algorithms')">Quantum Algorithms</a>
+                <a onclick="scrollToCategory('benchmarking')">Benchmarking</a>
+                <a onclick="scrollToCategory('quantum-error-correction')">Quantum Error Correction</a>
+                <a onclick="scrollToCategory('quantum-hardware')">Quantum Hardware</a>
+                <a onclick="scrollToCategory('quantum-software')">Quantum Software</a>
+                <a onclick="scrollToCategory('quantum-communication')">Quantum Communication</a>
+                <a onclick="scrollToCategory('quantum-concepts')">Quantum Concepts</a>
+                <a onclick="scrollToCategory('quantum-architectures')">Quantum Architectures</a>
+                <a onclick="scrollToCategory('performance-metrics')">Performance Metrics</a>
+                <a onclick="scrollToCategory('quantum-programming')">Quantum Programming</a>
+                <a onclick="scrollToCategory('business-strategy')">Business Strategy</a>
+            </div>
+        </div>
+
+        <div class="categories-grid">
+            <!-- Qubits Category -->
+            <div class="category-card expanded" data-category="qubits">
+                <div class="category-header" onclick="toggleCategory(this)">
+                    <div>
+                        <h2 class="category-title">
+                            <div class="category-icon">Q</div>
+                            Qubits
+                        </h2>
+                        <p class="category-description">Different types and implementations of quantum bits</p>
+                    </div>
+                    <div class="accordion-toggle">▼</div>
                 </div>
-                <div class="category-content">
+                <div class="terms-container">
                     <div class="terms-grid">
                     <div class="term">
                         <div class="term-name">Algorithmic Qubit</div>
@@ -563,12 +766,19 @@
                 </div>
             </div>
 
-            <div class="category" id="quantum-algorithms">
-                <div class="category-header" onclick="toggleAccordion('quantum-algorithms')">
-                    Quantum Algorithms
-                    <span class="accordion-icon">▼</span>
+            <!-- Quantum Algorithms Category -->
+            <div class="category-card" data-category="quantum-algorithms">
+                <div class="category-header" onclick="toggleCategory(this)">
+                    <div>
+                        <h2 class="category-title">
+                            <div class="category-icon">⟨⟩</div>
+                            Quantum Algorithms
+                        </h2>
+                        <p class="category-description">Core algorithms that leverage quantum properties for computational advantage</p>
+                    </div>
+                    <div class="accordion-toggle">▼</div>
                 </div>
-                <div class="category-content">
+                <div class="terms-container">
                     <div class="terms-grid">
                     <div class="term">
                         <div class="term-name">Variational Quantum Algorithms (VQA)</div>
@@ -694,18 +904,19 @@
                 </div>
             </div>
 
-
-
-
-
-
-            
-            <div class="category" id="benchmarking">
-                <div class="category-header" onclick="toggleAccordion('benchmarking')">
-                    Benchmarking (Quantum)
-                    <span class="accordion-icon">▼</span>
+            <!-- Benchmarking Category -->
+            <div class="category-card" data-category="benchmarking">
+                <div class="category-header" onclick="toggleCategory(this)">
+                    <div>
+                        <h2 class="category-title">
+                            <div class="category-icon">📊</div>
+                            Benchmarking
+                        </h2>
+                        <p class="category-description">Methods and metrics for evaluating quantum system performance</p>
+                    </div>
+                    <div class="accordion-toggle">▼</div>
                 </div>
-                <div class="category-content">
+                <div class="terms-container">
                     <div class="terms-grid">
                     <div class="term">
                         <div class="term-name">Quantum Volume</div>
@@ -755,12 +966,19 @@
                 </div>
             </div>
 
-            <div class="category" id="quantum-error-correction">
-                <div class="category-header" onclick="toggleAccordion('quantum-error-correction')">
-                    Quantum Error Correction
-                    <span class="accordion-icon">▼</span>
+            <!-- Quantum Error Correction Category -->
+            <div class="category-card" data-category="quantum-error-correction">
+                <div class="category-header" onclick="toggleCategory(this)">
+                    <div>
+                        <h2 class="category-title">
+                            <div class="category-icon">🛡</div>
+                            Quantum Error Correction
+                        </h2>
+                        <p class="category-description">Techniques for protecting quantum information from errors</p>
+                    </div>
+                    <div class="accordion-toggle">▼</div>
                 </div>
-                <div class="category-content">
+                <div class="terms-container">
                     <div class="terms-grid">
                     <div class="term">
                         <div class="term-name">Error-Corrected Qubit</div>
@@ -810,12 +1028,19 @@
                 </div>
             </div>
 
-            <div class="category" id="quantum-hardware">
-                <div class="category-header" onclick="toggleAccordion('quantum-hardware')">
-                    Quantum Hardware and Components
-                    <span class="accordion-icon">▼</span>
+            <!-- Quantum Hardware Category -->
+            <div class="category-card" data-category="quantum-hardware">
+                <div class="category-header" onclick="toggleCategory(this)">
+                    <div>
+                        <h2 class="category-title">
+                            <div class="category-icon">⚙</div>
+                            Quantum Hardware
+                        </h2>
+                        <p class="category-description">Physical components and systems that enable quantum computing</p>
+                    </div>
+                    <div class="accordion-toggle">▼</div>
                 </div>
-                <div class="category-content">
+                <div class="terms-container">
                     <div class="terms-grid">
                     <div class="term">
                         <div class="term-name">Quantum Processing Unit (QPU)</div>
@@ -877,12 +1102,19 @@
                 </div>
             </div>
 
-            <div class="category" id="quantum-software">
-                <div class="category-header" onclick="toggleAccordion('quantum-software')">
-                    Quantum Software and Compilation
-                    <span class="accordion-icon">▼</span>
+            <!-- Quantum Software Category -->
+            <div class="category-card" data-category="quantum-software">
+                <div class="category-header" onclick="toggleCategory(this)">
+                    <div>
+                        <h2 class="category-title">
+                            <div class="category-icon">💻</div>
+                            Quantum Software
+                        </h2>
+                        <p class="category-description">Tools and frameworks for developing quantum applications</p>
+                    </div>
+                    <div class="accordion-toggle">▼</div>
                 </div>
-                <div class="category-content">
+                <div class="terms-container">
                     <div class="terms-grid">
                     <div class="term">
                         <div class="term-name">Quantum Compiler</div>
@@ -944,12 +1176,19 @@
                 </div>
             </div>
 
-            <div class="category" id="quantum-communication">
-                <div class="category-header" onclick="toggleAccordion('quantum-communication')">
-                    Quantum Communication and Cryptography
-                    <span class="accordion-icon">▼</span>
+            <!-- Quantum Communication Category -->
+            <div class="category-card" data-category="quantum-communication">
+                <div class="category-header" onclick="toggleCategory(this)">
+                    <div>
+                        <h2 class="category-title">
+                            <div class="category-icon">📡</div>
+                            Quantum Communication
+                        </h2>
+                        <p class="category-description">Secure communication and cryptography using quantum principles</p>
+                    </div>
+                    <div class="accordion-toggle">▼</div>
                 </div>
-                <div class="category-content">
+                <div class="terms-container">
                     <div class="terms-grid">
                     <div class="term">
                         <div class="term-name">Quantum Interconnect</div>
@@ -1015,12 +1254,19 @@
                 </div>
             </div>
 
-            <div class="category" id="quantum-concepts">
-                <div class="category-header" onclick="toggleAccordion('quantum-concepts')">
-                    Quantum Concepts & Phenomena
-                    <span class="accordion-icon">▼</span>
+            <!-- Quantum Concepts Category -->
+            <div class="category-card" data-category="quantum-concepts">
+                <div class="category-header" onclick="toggleCategory(this)">
+                    <div>
+                        <h2 class="category-title">
+                            <div class="category-icon">🔬</div>
+                            Quantum Concepts
+                        </h2>
+                        <p class="category-description">Fundamental quantum mechanics principles and phenomena</p>
+                    </div>
+                    <div class="accordion-toggle">▼</div>
                 </div>
-                <div class="category-content">
+                <div class="terms-container">
                     <div class="terms-grid">
                     <div class="term">
                         <div class="term-name">Coherence Time</div>
@@ -1058,12 +1304,19 @@
                 </div>
             </div>
 
-            <div class="category" id="quantum-architectures">
-                <div class="category-header" onclick="toggleAccordion('quantum-architectures')">
-                    Quantum Computing Architectures
-                    <span class="accordion-icon">▼</span>
+            <!-- Quantum Architectures Category -->
+            <div class="category-card" data-category="quantum-architectures">
+                <div class="category-header" onclick="toggleCategory(this)">
+                    <div>
+                        <h2 class="category-title">
+                            <div class="category-icon">🏗</div>
+                            Quantum Architectures
+                        </h2>
+                        <p class="category-description">Different approaches to building quantum computing systems</p>
+                    </div>
+                    <div class="accordion-toggle">▼</div>
                 </div>
-                <div class="category-content">
+                <div class="terms-container">
                     <div class="terms-grid">
                     <div class="term">
                         <div class="term-name">Gate-Based Quantum Computer</div>
@@ -1093,12 +1346,19 @@
                 </div>
             </div>
 
-            <div class="category" id="performance-metrics">
-                <div class="category-header" onclick="toggleAccordion('performance-metrics')">
-                    Performance Metrics
-                    <span class="accordion-icon">▼</span>
+            <!-- Performance Metrics Category -->
+            <div class="category-card" data-category="performance-metrics">
+                <div class="category-header" onclick="toggleCategory(this)">
+                    <div>
+                        <h2 class="category-title">
+                            <div class="category-icon">📈</div>
+                            Performance Metrics
+                        </h2>
+                        <p class="category-description">Key indicators for measuring quantum system capabilities</p>
+                    </div>
+                    <div class="accordion-toggle">▼</div>
                 </div>
-                <div class="category-content">
+                <div class="terms-container">
                     <div class="terms-grid">
                     <div class="term">
                         <div class="term-name">Gate Fidelity</div>
@@ -1164,12 +1424,19 @@
                 </div>
             </div>
 
-            <div class="category" id="quantum-programming">
-                <div class="category-header" onclick="toggleAccordion('quantum-programming')">
-                    Quantum Programming & Productivity
-                    <span class="accordion-icon">▼</span>
+            <!-- Quantum Programming Category -->
+            <div class="category-card" data-category="quantum-programming">
+                <div class="category-header" onclick="toggleCategory(this)">
+                    <div>
+                        <h2 class="category-title">
+                            <div class="category-icon">👨‍💻</div>
+                            Quantum Programming
+                        </h2>
+                        <p class="category-description">Languages and tools for quantum software development</p>
+                    </div>
+                    <div class="accordion-toggle">▼</div>
                 </div>
-                <div class="category-content">
+                <div class="terms-container">
                     <div class="terms-grid">
                     <div class="term">
                         <div class="term-name">Quantum Programming Language (QPL)</div>
@@ -1239,12 +1506,19 @@
                 </div>
             </div>
 
-            <div class="category" id="business-strategy">
-                <div class="category-header" onclick="toggleAccordion('business-strategy')">
-                    Business Strategy & Implementation
-                    <span class="accordion-icon">▼</span>
+            <!-- Business Strategy Category -->
+            <div class="category-card" data-category="business-strategy">
+                <div class="category-header" onclick="toggleCategory(this)">
+                    <div>
+                        <h2 class="category-title">
+                            <div class="category-icon">💼</div>
+                            Business Strategy
+                        </h2>
+                        <p class="category-description">Implementation and adoption strategies for quantum technologies</p>
+                    </div>
+                    <div class="accordion-toggle">▼</div>
                 </div>
-                <div class="category-content">
+                <div class="terms-container">
                     <div class="terms-grid">
                     <div class="term">
                         <div class="term-name">Quantum Proof of Concept (PoC)</div>
@@ -1281,42 +1555,70 @@
                     </div>
                 </div>
             </div>
-        </div>    
-        <div class="floating-nav" id="floatingNav">
-            <a onclick="openAccordion('qubits')"></a>
-            <a onclick="openAccordion('quantum-algorithms')"></a>
-            <a onclick="openAccordion('benchmarking')"></a>
-            <a onclick="openAccordion('quantum-error-correction')"></a>
-            <a onclick="openAccordion('quantum-hardware')"></a>
-            <a onclick="openAccordion('quantum-software')"></a>
-            <a onclick="openAccordion('quantum-communication')"></a>
-            <a onclick="openAccordion('quantum-concepts')"></a>
-            <a onclick="openAccordion('quantum-architectures')"></a>
-            <a onclick="openAccordion('performance-metrics')"></a>
-            <a onclick="openAccordion('quantum-programming')"></a>
-            <a onclick="openAccordion('business-strategy')"></a>
         </div>
+    </main>
 
-        <button class="back-to-top" id="backToTop">↑</button>
+    <div class="floating-nav" id="floatingNav">
+        <a onclick="scrollToCategory('qubits')" data-category="qubits"></a>
+        <a onclick="scrollToCategory('quantum-algorithms')" data-category="quantum-algorithms"></a>
+        <a onclick="scrollToCategory('benchmarking')" data-category="benchmarking"></a>
+        <a onclick="scrollToCategory('quantum-error-correction')" data-category="quantum-error-correction"></a>
+        <a onclick="scrollToCategory('quantum-hardware')" data-category="quantum-hardware"></a>
+        <a onclick="scrollToCategory('quantum-software')" data-category="quantum-software"></a>
+        <a onclick="scrollToCategory('quantum-communication')" data-category="quantum-communication"></a>
+        <a onclick="scrollToCategory('quantum-concepts')" data-category="quantum-concepts"></a>
+        <a onclick="scrollToCategory('quantum-architectures')" data-category="quantum-architectures"></a>
+        <a onclick="scrollToCategory('performance-metrics')" data-category="performance-metrics"></a>
+        <a onclick="scrollToCategory('quantum-programming')" data-category="quantum-programming"></a>
+        <a onclick="scrollToCategory('business-strategy')" data-category="business-strategy"></a>
     </div>
 
-    <div class="quantum-particle" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
-    <div class="quantum-particle" style="top: 60%; left: 80%; animation-delay: 2s;"></div>
-    <div class="quantum-particle" style="top: 30%; left: 70%; animation-delay: 4s;"></div>
+    <button class="back-to-top" id="backToTop">↑</button>
 
     <script>
-        // Global variables
+        // Scroll to category function
+        function scrollToCategory(categoryId) {
+            const categoryElement = document.querySelector(`[data-category="${categoryId}"]`);
+            if (categoryElement) {
+                // Expand the category if it's not already expanded
+                if (!categoryElement.classList.contains('expanded')) {
+                    categoryElement.classList.add('expanded');
+                }
+                
+                // Scroll to the category
+                setTimeout(() => {
+                    categoryElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 300);
+            }
+        }
+
+        // Accordion functionality
+        function toggleCategory(headerElement) {
+            const categoryCard = headerElement.closest('.category-card');
+            const isExpanded = categoryCard.classList.contains('expanded');
+            
+            if (isExpanded) {
+                categoryCard.classList.remove('expanded');
+            } else {
+                categoryCard.classList.add('expanded');
+            }
+        }
+
+        // Global variables for search functionality
         let allTerms = [];
         let currentSelectedIndex = -1;
 
         // Initialize all terms data for autocomplete
         function initializeTermsData() {
-            const categories = document.querySelectorAll('.category');
+            const categories = document.querySelectorAll('.category-card');
             allTerms = [];
             
             categories.forEach(category => {
-                const categoryId = category.id;
-                const categoryName = category.querySelector('.category-header').textContent.trim();
+                const categoryId = category.dataset.category;
+                const categoryName = category.querySelector('.category-title').textContent.trim();
                 const terms = category.querySelectorAll('.term');
                 
                 terms.forEach(term => {
@@ -1334,44 +1636,6 @@
             });
         }
 
-        // Accordion functionality
-        function toggleAccordion(categoryId) {
-            const allCategories = document.querySelectorAll('.category');
-            const targetCategory = document.getElementById(categoryId);
-            
-            // Close all other accordions
-            allCategories.forEach(category => {
-                if (category.id !== categoryId) {
-                    category.classList.remove('active');
-                }
-            });
-            
-            // Toggle the target accordion
-            targetCategory.classList.toggle('active');
-        }
-
-        function openAccordion(categoryId) {
-            const allCategories = document.querySelectorAll('.category');
-            const targetCategory = document.getElementById(categoryId);
-            
-            // Close all accordions
-            allCategories.forEach(category => {
-                category.classList.remove('active');
-            });
-            
-            // Open the target accordion
-            targetCategory.classList.add('active');
-            
-            // Scroll to the top of the section header
-            setTimeout(() => {
-                const headerTop = targetCategory.offsetTop - 20; // Small offset for better visual spacing
-                window.scrollTo({
-                    top: headerTop,
-                    behavior: 'smooth'
-                });
-            }, 600);
-        }
-       
         // Autocomplete functionality
         const searchInput = document.getElementById('searchInput');
         const autocompleteDropdown = document.getElementById('autocompleteDropdown');
@@ -1406,15 +1670,12 @@
         function highlightMatch(text, query) {
             if (!query) return text;
             const regex = new RegExp(`(${query})`, 'gi');
-            return text.replace(regex, '<mark style="background: #40e0ff; color: #0a0a0a; padding: 1px 3px; border-radius: 2px;">$1</mark>');
+            return text.replace(regex, '<mark style="background: #d7f75b; color: #191919; padding: 1px 3px; border-radius: 2px;">$1</mark>');
         }
 
         function selectTerm(term) {
             searchInput.value = term.name;
             hideAutocomplete();
-            
-            // Open the appropriate accordion
-            openAccordion(term.categoryId);
             
             // Scroll to the specific term
             setTimeout(() => {
@@ -1424,16 +1685,16 @@
                 });
                 
                 // Highlight the term temporarily
-                term.element.style.transform = 'scale(1.02)';
-                term.element.style.boxShadow = '0 12px 40px rgba(64, 224, 255, 0.3)';
-                term.element.style.borderColor = '#40e0ff';
+                term.element.style.transform = 'scale(1.02) translateX(8px)';
+                term.element.style.borderColor = '#d7f75b';
+                term.element.style.background = 'rgba(215, 247, 91, 0.1)';
                 
                 setTimeout(() => {
                     term.element.style.transform = '';
-                    term.element.style.boxShadow = '';
                     term.element.style.borderColor = '';
+                    term.element.style.background = '';
                 }, 2000);
-            }, 600);
+            }, 100);
         }
 
         function navigateAutocomplete(direction) {
@@ -1457,21 +1718,58 @@
             items[currentSelectedIndex].scrollIntoView({ block: 'nearest' });
         }
 
-        // Search input event listeners
+        // Search functionality
         searchInput.addEventListener('input', function() {
             const query = this.value.toLowerCase().trim();
             
             if (query.length < 2) {
                 hideAutocomplete();
+                // Show all terms when search is cleared
+                const termItems = document.querySelectorAll('.term');
+                termItems.forEach(term => {
+                    term.style.display = 'block';
+                    term.style.opacity = '1';
+                });
                 return;
             }
             
+            // Filter and show autocomplete
             const suggestions = allTerms.filter(term => 
                 term.name.toLowerCase().includes(query) || 
                 term.definition.toLowerCase().includes(query)
-            ).slice(0, 8); // Limit to 8 suggestions
+            ).slice(0, 8);
             
             showAutocomplete(suggestions);
+            
+            // Filter visible terms
+            const termItems = document.querySelectorAll('.term');
+            let hasVisibleTerms = false;
+            
+            termItems.forEach(term => {
+                const termName = term.querySelector('.term-name').textContent.toLowerCase();
+                const termDefinition = term.querySelector('.term-definition').textContent.toLowerCase();
+                
+                if (termName.includes(query) || termDefinition.includes(query)) {
+                    term.style.display = 'block';
+                    term.style.opacity = '1';
+                    hasVisibleTerms = true;
+                    
+                    // Expand parent category if it has matching terms
+                    const parentCategory = term.closest('.category-card');
+                    if (parentCategory && !parentCategory.classList.contains('expanded')) {
+                        parentCategory.classList.add('expanded');
+                    }
+                } else {
+                    term.style.display = 'none';
+                }
+            });
+            
+            // If searching and no terms visible, collapse all categories
+            if (query && !hasVisibleTerms) {
+                document.querySelectorAll('.category-card').forEach(cat => {
+                    cat.classList.remove('expanded');
+                });
+            }
         });
 
         searchInput.addEventListener('keydown', function(e) {
@@ -1504,12 +1802,12 @@
 
         // Click outside to close autocomplete
         document.addEventListener('click', function(e) {
-            if (!e.target.closest('.search-container')) {
+            if (!e.target.closest('.search-section')) {
                 hideAutocomplete();
             }
         });
 
-        // Back to top functionality
+        // Back to top and floating nav functionality
         const backToTop = document.getElementById('backToTop');
         const floatingNav = document.getElementById('floatingNav');
 
@@ -1528,7 +1826,7 @@
         });
 
         // Floating navigation active state
-        const sections = document.querySelectorAll('.category');
+        const sections = document.querySelectorAll('.category-card');
         const navLinks = document.querySelectorAll('.floating-nav a');
 
         window.addEventListener('scroll', function() {
@@ -1537,40 +1835,19 @@
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.clientHeight;
                 if (pageYOffset >= sectionTop - 200) {
-                    current = section.getAttribute('id');
+                    current = section.getAttribute('data-category');
                 }
             });
 
             navLinks.forEach(link => {
                 link.classList.remove('active');
-                if (link.getAttribute('onclick') && link.getAttribute('onclick').includes(current)) {
+                if (link.getAttribute('data-category') === current) {
                     link.classList.add('active');
                 }
             });
         });
 
-        // Add quantum particles dynamically
-        function createQuantumParticle() {
-            const particle = document.createElement('div');
-            particle.className = 'quantum-particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.top = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 6 + 's';
-            particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
-            document.body.appendChild(particle);
-
-            // Remove particle after animation
-            setTimeout(() => {
-                if (particle.parentNode) {
-                    particle.parentNode.removeChild(particle);
-                }
-            }, 10000);
-        }
-
-        // Create particles periodically
-        setInterval(createQuantumParticle, 3000);
-
-        // Intersection Observer for animations
+        // Smooth scroll reveal animation
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -1585,18 +1862,78 @@
             });
         }, observerOptions);
 
-        // Initialize on page load
+        // Initialize animations and functionality
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize terms data for search
             initializeTermsData();
             
-            // Apply animation observer to terms
+            // Apply animation observer to category cards
+            const cards = document.querySelectorAll('.category-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+                observer.observe(card);
+            });
+
+            // Apply animation observer to term items
             const terms = document.querySelectorAll('.term');
             terms.forEach(term => {
                 term.style.opacity = '0';
-                term.style.transform = 'translateY(30px)';
+                term.style.transform = 'translateY(20px)';
                 term.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
                 observer.observe(term);
             });
+        });
+
+        // Add dynamic quantum particles
+        function createQuantumParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 8 + 's';
+            particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
+            
+            const particlesContainer = document.querySelector('.floating-particles');
+            particlesContainer.appendChild(particle);
+
+            // Remove particle after animation
+            setTimeout(() => {
+                if (particle.parentNode) {
+                    particle.parentNode.removeChild(particle);
+                }
+            }, 12000);
+        }
+
+        // Create particles periodically
+        setInterval(createQuantumParticle, 4000);
+
+        // Smooth scrolling for internal links
+        document.addEventListener('click', function(e) {
+            if (e.target.matches('a[href^="#"]')) {
+                e.preventDefault();
+                const targetId = e.target.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }
+        });
+
+        // Keyboard navigation for accessibility
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                // Add focus styles for keyboard navigation
+                document.body.classList.add('keyboard-navigation');
+            }
+        });
+
+        document.addEventListener('mousedown', function() {
+            document.body.classList.remove('keyboard-navigation');
         });
     </script>
 </body>
